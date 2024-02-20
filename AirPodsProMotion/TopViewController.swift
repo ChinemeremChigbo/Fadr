@@ -12,15 +12,15 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
     private lazy var table: UITableView = {
         let table = UITableView(frame: self.view.bounds, style: .plain)
         table.autoresizingMask = [
-          .flexibleWidth,
-          .flexibleHeight
+            .flexibleWidth,
+            .flexibleHeight
         ]
         table.rowHeight = 60
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    private var items: [UIViewController] = [InformationViewController(), SK3DViewController(), TableViewController(), ExportCSVViewController()]
-    private var itemTitle: [String] = ["Information View", "Rotate the Cube View", "Table scrolling by Head Motion", "Export CSV file"]
+    private var items: [UIViewController] = [InformationViewController(), SK3DViewController(),  ExportCSVViewController()]
+    private var itemTitle: [String] = ["Information View", "Rotate the Cube View",  "Export CSV file"]
     
     
     override func viewDidLoad() {
@@ -31,7 +31,7 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
         table.dataSource = self
         table.delegate = self
         view.addSubview(table)
-
+        
     }
     
     
@@ -50,5 +50,5 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
         tableView.deselectRow(at: indexPath, animated: true)
         self.navigationController?.pushViewController(items[indexPath.row], animated: true)
     }
-
+    
 }
