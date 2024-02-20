@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		109735482B856EDF00FB0214 /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 109735472B856EDF00FB0214 /* hair_height.scn */; };
 		8E176586282AAB5B00AE621C /* AlertViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E176585282AAB5B00AE621C /* AlertViews.swift */; };
 		8E4A7F8D255AF88100CC0C2D /* ExportCSVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A7F8C255AF88100CC0C2D /* ExportCSVViewController.swift */; };
 		8E4A7F90255AFD9F00CC0C2D /* CSVWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A7F8F255AFD9F00CC0C2D /* CSVWriter.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		109735472B856EDF00FB0214 /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = hair_height.scn; path = AirPodsProMotion/Objects/hair_height.scn; sourceTree = SOURCE_ROOT; };
 		8E176585282AAB5B00AE621C /* AlertViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViews.swift; sourceTree = "<group>"; };
 		8E4A7F8C255AF88100CC0C2D /* ExportCSVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportCSVViewController.swift; sourceTree = "<group>"; };
 		8E4A7F8F255AFD9F00CC0C2D /* CSVWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVWriter.swift; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1097353A2B855D6F00FB0214 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				109735472B856EDF00FB0214 /* hair_height.scn */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		8E4A85CC251A37600077CDAC = {
 			isa = PBXGroup;
 			children = (
@@ -68,10 +78,11 @@
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
 				8EF9EA04251B690C00D239C4 /* SK3DViewController.swift */,
 				8E4A7F8C255AF88100CC0C2D /* ExportCSVViewController.swift */,
-				8EB3739025276E3100B9B3C0 /* Supporting Files */,
+				1097353A2B855D6F00FB0214 /* Objects */,
 				8E4A85E1251A37610077CDAC /* Assets.xcassets */,
 				8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */,
 				8E4A85E6251A37610077CDAC /* Info.plist */,
+				8EB3739025276E3100B9B3C0 /* Supporting Files */,
 			);
 			path = AirPodsProMotion;
 			sourceTree = "<group>";
@@ -145,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E4A85E5251A37610077CDAC /* LaunchScreen.storyboard in Resources */,
+				109735482B856EDF00FB0214 /* hair_height.scn in Resources */,
 				8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
