@@ -11,9 +11,7 @@ import CoreMotion
 
 class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
     
-    //AirPods Pro => APP :)
     let APP = CMHeadphoneMotionManager()
-    // cube
     var cubeNode: SCNNode!
     
     override func viewDidLoad() {
