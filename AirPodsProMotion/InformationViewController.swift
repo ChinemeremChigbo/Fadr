@@ -1,55 +1,42 @@
 import UIKit
 import CoreMotion
+import simd
 
 class InformationViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
     
-    lazy var textViewHeadphone: UITextView = {
+    
+    lazy var textView: UITextView = {
         let view = UITextView()
         view.frame = CGRect(x: self.view.bounds.minX + (self.view.bounds.width / 10),
                             y: self.view.bounds.minY + (self.view.bounds.height / 10),
-                            width: self.view.bounds.width, height: self.view.bounds.height / 2)
-        view.text = "Looking for headphones"
+                            width: self.view.bounds.width, height: self.view.bounds.height)
+        view.text = "Looking for headphones and phone"
         view.font = view.font?.withSize(14)
         view.isEditable = false
         return view
     }()
-    
-    lazy var textViewPhone: UITextView = {
-        let view = UITextView()
-        view.frame = CGRect(x: self.view.bounds.minX + (self.view.bounds.width / 10),
-                            y: self.view.bounds.height / 2  + (self.view.bounds.height / 10),
-                            width: self.view.bounds.width, height: self.view.bounds.height / 2)
-        view.text = "Looking for phone"
-        view.font = view.font?.withSize(14)
-        view.isEditable = false
-        return view
-    }()
-    
     
     let headphone = CMHeadphoneMotionManager()
     let phone = CMMotionManager()
-    
+    var headphoneData: CMDeviceMotion?
+    var phoneData: CMDeviceMotion?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Information View"
         view.backgroundColor = .systemBackground
-        view.addSubview(textViewHeadphone)
-        view.addSubview(textViewPhone)
+        view.addSubview(textView)
         
-        
-        
-        //        headphone.delegate = self
         
         guard headphone.isDeviceMotionAvailable else {
             AlertView.alert(self, "Sorry", "Your headphones are not supported.")
-            textViewHeadphone.text = "Sorry, Your headphones are not supported."
+            textView.text = "Sorry, Your headphones are not supported."
             return
         }
         
         guard phone.isDeviceMotionAvailable else {
             AlertView.alert(self, "Sorry", "Your phone is not supported.")
-            textViewPhone.text = "Sorry, Your phone is not supported."
+            textView.text = "Sorry, Your phone is not supported."
             return
         }
         
@@ -59,39 +46,76 @@ class InformationViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         headphone.startDeviceMotionUpdates(to: queue) { [weak self] motion, error in
             guard let motion = motion, error == nil else { return }
-            self?.printData(motion, for: "Headphone", textview: self?.textViewHeadphone ?? UITextView())
+            self?.headphoneData = motion
+            self?.updateData()
         }
         
         phone.startDeviceMotionUpdates(to: queue) { [weak self] motion, error in
             guard let motion = motion, error == nil else { return }
-            self?.printData(motion, for: "Phone", textview: self?.textViewPhone ?? UITextView())
+            self?.phoneData = motion
+            self?.updateData()
         }
+        
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.viewDidLoad()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         headphone.stopDeviceMotionUpdates()
+        phone.stopDeviceMotionUpdates()
+        
     }
     
-    
-    func printData(_ data: CMDeviceMotion, for source: String, textview: UITextView) {
+    func updateData() {
+        guard let headphoneData = self.headphoneData, let phoneData = self.phoneData else {
+            return
+        }
+        
+        let headphone_quaternion = simd_quatd(ix: headphoneData.attitude.quaternion.x,
+                                              iy: headphoneData.attitude.quaternion.y,
+                                              iz: headphoneData.attitude.quaternion.z,
+                                              r: headphoneData.attitude.quaternion.w)
+        
+        let phone_quaternion = simd_quatd(ix: phoneData.attitude.quaternion.x,
+                                          iy: phoneData.attitude.quaternion.y,
+                                          iz: phoneData.attitude.quaternion.z,
+                                          r: phoneData.attitude.quaternion.w)
+        
+        let relative_quaternion = headphone_quaternion.inverse * phone_quaternion;
+        
+        
         DispatchQueue.main.async {
-            print("\(source) data: \(data)")
-            textview.text = """
-                \(source) Data:
-                Quaternion:
-                    x: \(data.attitude.quaternion.x)
-                    y: \(data.attitude.quaternion.y)
-                    z: \(data.attitude.quaternion.z)
-                    w: \(data.attitude.quaternion.w)
-                Attitude:
-                    pitch: \(data.attitude.pitch)
-                    roll: \(data.attitude.roll)
-                    yaw: \(data.attitude.yaw)
-                """
+            self.textView.text = """
+                            Headphone Data:
+                            Quaternion:
+                                x: \(headphoneData.attitude.quaternion.x)
+                                y: \(headphoneData.attitude.quaternion.y)
+                                z: \(headphoneData.attitude.quaternion.z)
+                                w: \(headphoneData.attitude.quaternion.w)
+                            Attitude:
+                                pitch: \(headphoneData.attitude.pitch)
+                                roll: \(headphoneData.attitude.roll)
+                                yaw: \(headphoneData.attitude.yaw)
+                            
+                            Phone Data:
+                            Quaternion:
+                                x: \(phoneData.attitude.quaternion.x)
+                                y: \(phoneData.attitude.quaternion.y)
+                                z: \(phoneData.attitude.quaternion.z)
+                                w: \(phoneData.attitude.quaternion.w)
+                            Attitude:
+                                pitch: \(phoneData.attitude.pitch)
+                                roll: \(phoneData.attitude.roll)
+                                yaw: \(phoneData.attitude.yaw)
+                            
+                            Relative Data:
+                            Quaternion:
+                                x: \(relative_quaternion.vector.x)
+                                y: \(relative_quaternion.vector.y)
+                                z: \(relative_quaternion.vector.z)
+                                w: \(relative_quaternion.vector.w)
+                            """
         }
         
     }
