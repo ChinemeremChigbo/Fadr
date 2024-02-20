@@ -55,7 +55,7 @@ class ExportCSVViewController: UIViewController, CMHeadphoneMotionManagerDelegat
         view.addSubview(textView)
         
         f.dateFormat = "yyyyMMdd_HHmmss"
-
+        
         APP.delegate = self
     }
     
@@ -69,7 +69,7 @@ class ExportCSVViewController: UIViewController, CMHeadphoneMotionManagerDelegat
     func start() {
         APP.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: {[weak self] motion, error  in
             guard let motion = motion, error == nil else { return }
-                self?.writer.write(motion)
+            self?.writer.write(motion)
             self?.printData(motion)
         })
     }
@@ -91,10 +91,10 @@ class ExportCSVViewController: UIViewController, CMHeadphoneMotionManagerDelegat
             write.toggle()
             button.setTitle("Stop", for: .normal)
             let dir = FileManager.default.urls(
-              for: .documentDirectory,
-              in: .userDomainMask
+                for: .documentDirectory,
+                in: .userDomainMask
             ).first!
-
+            
             let now = Date()
             let filename = f.string(from: now) + "_motion.csv"
             let fileUrl = dir.appendingPathComponent(filename)
