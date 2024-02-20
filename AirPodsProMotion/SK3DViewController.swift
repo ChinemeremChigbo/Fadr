@@ -1,10 +1,3 @@
-//
-//  SK3DViewController.swift
-//  AirPodsProMotion
-//
-//  Created by Yoshio on 2020/09/23.
-//
-
 import UIKit
 import SceneKit
 import CoreMotion

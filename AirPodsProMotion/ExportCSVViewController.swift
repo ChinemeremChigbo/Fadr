@@ -1,10 +1,3 @@
-//
-//  ExportCSV.swift
-//  AirPodsProMotion
-//
-//  Created by Yoshio on 2020/11/10.
-//
-
 import Foundation
 import UIKit
 import CoreMotion
@@ -44,8 +37,6 @@ class ExportCSVViewController: UIViewController, CMHeadphoneMotionManagerDelegat
     let f = DateFormatter()
     
     var write: Bool = false
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

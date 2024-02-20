@@ -1,10 +1,3 @@
-//
-//  TopViewController.swift
-//  AirPodsProMotion
-//
-//  Created by Yoshio on 2020/10/02.
-//
-
 import UIKit
 
 class TopViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {

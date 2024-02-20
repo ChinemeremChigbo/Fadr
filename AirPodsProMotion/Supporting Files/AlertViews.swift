@@ -1,10 +1,3 @@
-//
-//  AlertViews.swift
-//  AirPodsProMotion
-//
-//  Created by Yoshio on 2022/05/10.
-//
-
 import Foundation
 import UIKit
 

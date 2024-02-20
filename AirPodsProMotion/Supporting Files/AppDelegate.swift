@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  AirPodsProMotion
-//
-//  Created by Yoshio on 2020/09/22.
-//
-
 import UIKit
 
 @main
