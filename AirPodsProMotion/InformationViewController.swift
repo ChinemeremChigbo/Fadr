@@ -27,6 +27,7 @@ class InformationViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         view.backgroundColor = .systemBackground
         view.addSubview(textView)
         
+        headphone.delegate = self
         
         guard headphone.isDeviceMotionAvailable else {
             AlertView.alert(self, "Sorry", "Your headphones are not supported.")
@@ -62,6 +63,7 @@ class InformationViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         headphone.stopDeviceMotionUpdates()
         phone.stopDeviceMotionUpdates()
         
