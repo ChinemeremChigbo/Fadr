@@ -13,16 +13,24 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
     var hairHeightNode: SCNNode!
     var lastUpdateTimestamp: TimeInterval = 0
     let updateInterval: TimeInterval = 0.1 // Adjust the update interval as needed
+    var scnView = SCNView()
+    
+    lazy var colorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .white
+        label.numberOfLines = 0
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Simple 3D View"
         self.view.backgroundColor = .systemBackground
-        
-        SceneSetUp()
-        
         headphone.delegate = self
         
+        SceneSetUp()
         
         guard headphone.isDeviceMotionAvailable else {
             AlertView.alert(self, "Sorry", "Your headphones are not supported.")
@@ -58,9 +66,13 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
         
         
         button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(colorLabel)
         NSLayoutConstraint.activate([
+            colorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            colorLabel.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 20)
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
         ])
         
     }
@@ -82,6 +94,7 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
             lastUpdateTimestamp = currentTimestamp
             DispatchQueue.main.async {
                 self.NodeRotate()
+                self.getColorOfMiddlePixelOfScene()
             }
         }
     }
@@ -107,13 +120,12 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
                                                    iz: Float(relative_quaternion.vector.z),
                                                    r: Float(relative_quaternion.vector.w))
         
-        hairHeightNode?.simdOrientation = relative_quaternion_float
+        hairHeightNode?.simdOrientation = relative_quaternion_float.inverse * origin_quaternion
         
     }
     @objc func stopAndReset() {
         
         guard let currentOrientation = hairHeightNode?.simdOrientation else {
-            // Handle the case where hairHeightNode?.simdOrientation is nil
             return
         }
         
@@ -122,28 +134,24 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
 }
 
 
-// SceneKit
 extension SK3DViewController {
     
     func SceneSetUp() {
-        let scnView = SCNView(frame: self.view.frame)
-        scnView.backgroundColor = UIColor.black
-        scnView.allowsCameraControl = false
-        scnView.showsStatistics = true
-        view.addSubview(scnView)
+        self.scnView = SCNView(frame: self.view.frame)
+        self.scnView.backgroundColor = UIColor.black
+        self.scnView.allowsCameraControl = false
+        self.scnView.showsStatistics = true
+        view.addSubview(self.scnView)
         
-        // Set SCNScene to SCNView
         let scene = SCNScene()
-        scnView.scene = scene
+        self.scnView.scene = scene
         
-        // Adding a camera to a scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.camera?.zNear = 0.1
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 0.5)
         scene.rootNode.addChildNode(cameraNode)
         
-        // Adding a light source to your scene that illuminates from all directions.
         let ambientLight = SCNLight()
         ambientLight.type = .ambient
         ambientLight.color = UIColor.darkGray
@@ -152,9 +160,7 @@ extension SK3DViewController {
         scene.rootNode.addChildNode(ambientLightNode)
         
         
-        // Load the hair_height file
         if let url = Bundle.main.url(forResource: "hair_height", withExtension: "scn") {
-            // Create a SCNScene from the .scn file
             if let loadedScene = try? SCNScene(url: url, options: nil) {
                 for node in loadedScene.rootNode.childNodes as [SCNNode] {
                     scene.rootNode.addChildNode(node)
@@ -168,4 +174,26 @@ extension SK3DViewController {
         }
         
     }
+    
+    func getColorOfMiddlePixelOfScene(){
+        
+        let sceneImage = self.scnView.snapshot()
+        
+        let middleX = Int(sceneImage.size.width / 2)
+        let middleY = Int(sceneImage.size.height / 2)
+        
+        guard let cgImage = sceneImage.cgImage else {
+            return
+        }
+        let pixelData = cgImage.dataProvider?.data
+        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+        let pixelInfo: Int = ((Int(cgImage.width) * middleY) + middleX) * 4 // RGBA
+        
+        let red = CGFloat(data[pixelInfo]) / 255.0
+        
+        DispatchQueue.main.async {
+            self.colorLabel.text = "Height: \(Double(round(1000 * (1 - red) ) / 1000))"
+        }
+    }
+    
 }
