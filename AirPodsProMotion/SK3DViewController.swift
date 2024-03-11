@@ -25,6 +25,26 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
         label.numberOfLines = 0
         return label
     }()
+    func drawCircle() {
+        // Get the middle point of the view
+        let middlePoint = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        
+        // Calculate the radius of the circle
+        let radius: CGFloat = 50.0
+        
+        // Create a UIBezierPath for the circle
+        let circlePath = UIBezierPath(arcCenter: middlePoint, radius: radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+        
+        // Create a CAShapeLayer to draw the circle
+        let circleLayer = CAShapeLayer()
+        circleLayer.path = circlePath.cgPath
+        circleLayer.strokeColor = UIColor.blue.cgColor // Set the stroke color to blue
+        circleLayer.fillColor = UIColor.clear.cgColor // Set fill color to clear (transparent)
+        circleLayer.lineWidth = 2.0 // Set the line width
+        
+        // Add the circle layer to the view's layer
+        view.layer.addSublayer(circleLayer)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +53,8 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
         headphone.delegate = self
         
         SceneSetUp()
+        
+        drawCircle()
         
         guard headphone.isDeviceMotionAvailable else {
             AlertView.alert(self, "Sorry", "Your headphones are not supported.")
@@ -43,7 +65,7 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
             AlertView.alert(self, "Sorry", "Your phone is not supported.")
             return
         }
-                
+        
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 2
         
@@ -192,7 +214,7 @@ extension SK3DViewController {
         
         let red = CGFloat(data[pixelInfo]) / 255.0
         let height = String(format: "%.3f", Double(round(1000 * (1 - red)) / 1000))
-
+        
         DispatchQueue.main.async {
             self.colorLabel.text = "Height: \(height)"
         }
