@@ -4,7 +4,9 @@ import CoreMotion
 
 class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
     
-    var origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+    var origin_quaternion = simd_quatf(ix: 0.7071068, iy: 0, iz: 0, r: 0.7071068)
+    var new_origin_quaternion = simd_quatf(ix: 0.7071068, iy: 0, iz: 0, r: 0.7071068)
+    var new_origin_set = false
     var first_quaternion = true
     let headphone = CMHeadphoneMotionManager()
     let phone = CMMotionManager()
@@ -41,8 +43,7 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
             AlertView.alert(self, "Sorry", "Your phone is not supported.")
             return
         }
-        
-        
+                
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 2
         
@@ -105,31 +106,31 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
         }
         
         let headphone_quaternion = simd_quatd(ix: headphoneData.attitude.quaternion.x,
-                                              iy: headphoneData.attitude.quaternion.y,
-                                              iz: headphoneData.attitude.quaternion.z,
-                                              r: headphoneData.attitude.quaternion.w)
+                                              iy: headphoneData.attitude.quaternion.z,
+                                              iz: headphoneData.attitude.quaternion.y,
+                                              r: -headphoneData.attitude.quaternion.w)
         
         let phone_quaternion = simd_quatd(ix: phoneData.attitude.quaternion.x,
-                                          iy: phoneData.attitude.quaternion.y,
-                                          iz: phoneData.attitude.quaternion.z,
-                                          r: phoneData.attitude.quaternion.w)
+                                          iy: phoneData.attitude.quaternion.z,
+                                          iz: phoneData.attitude.quaternion.y,
+                                          r: -phoneData.attitude.quaternion.w)
         
         let relative_quaternion = headphone_quaternion.inverse * phone_quaternion;
         let relative_quaternion_float = simd_quatf(ix: Float(relative_quaternion.vector.x),
                                                    iy: Float(relative_quaternion.vector.y),
                                                    iz: Float(relative_quaternion.vector.z),
                                                    r: Float(relative_quaternion.vector.w))
+        if !new_origin_set {
+            new_origin_quaternion = relative_quaternion_float
+            new_origin_set = true
+        }
+        let rotation = new_origin_quaternion.inverse * relative_quaternion_float
         
-        hairHeightNode?.simdOrientation = relative_quaternion_float.inverse * origin_quaternion
+        hairHeightNode?.simdOrientation =  origin_quaternion * rotation.inverse
         
     }
     @objc func stopAndReset() {
-        
-        guard let currentOrientation = hairHeightNode?.simdOrientation else {
-            return
-        }
-        
-        origin_quaternion = currentOrientation
+        new_origin_set = false
     }
 }
 
@@ -190,9 +191,10 @@ extension SK3DViewController {
         let pixelInfo: Int = ((Int(cgImage.width) * middleY) + middleX) * 4 // RGBA
         
         let red = CGFloat(data[pixelInfo]) / 255.0
-        
+        let height = String(format: "%.3f", Double(round(1000 * (1 - red)) / 1000))
+
         DispatchQueue.main.async {
-            self.colorLabel.text = "Height: \(Double(round(1000 * (1 - red) ) / 1000))"
+            self.colorLabel.text = "Height: \(height)"
         }
     }
     
