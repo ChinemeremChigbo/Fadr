@@ -12,14 +12,14 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    private var items: [UIViewController] = [InformationViewController(), SK3DViewController(),  ExportCSVViewController()]
-    private var itemTitle: [String] = ["Information View", "Rotate the Cube View",  "Export CSV file"]
+    private var items: [UIViewController] = [InformationViewController(), SK3DViewController()]
+    private var itemTitle: [String] = ["Information View", "Rotate the Head View"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "AirPodsProMotion Sampler"
+        self.title = "FadeBot"
         
         table.dataSource = self
         table.delegate = self
