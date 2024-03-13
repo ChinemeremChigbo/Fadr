@@ -24,6 +24,8 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Used to acquire motion for AirPods.</string>
 	<key>UIApplicationSceneManifest</key>
