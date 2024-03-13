@@ -10,7 +10,6 @@
 		109735562B8582C200FB0214 /* Hair.png in Resources */ = {isa = PBXBuildFile; fileRef = 109735542B8582C200FB0214 /* Hair.png */; };
 		10992B462B9F65490012D217 /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 10992B452B9F65490012D217 /* hair_height.scn */; };
 		8E176586282AAB5B00AE621C /* AlertViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E176585282AAB5B00AE621C /* AlertViews.swift */; };
-		8E4A7F8D255AF88100CC0C2D /* ExportCSVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A7F8C255AF88100CC0C2D /* ExportCSVViewController.swift */; };
 		8E4A7F90255AFD9F00CC0C2D /* CSVWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A7F8F255AFD9F00CC0C2D /* CSVWriter.swift */; };
 		8E4A85D9251A37600077CDAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A85D8251A37600077CDAC /* AppDelegate.swift */; };
 		8E4A85DB251A37600077CDAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A85DA251A37600077CDAC /* SceneDelegate.swift */; };
@@ -25,7 +24,6 @@
 		109735542B8582C200FB0214 /* Hair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hair.png; sourceTree = "<group>"; };
 		10992B452B9F65490012D217 /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		8E176585282AAB5B00AE621C /* AlertViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViews.swift; sourceTree = "<group>"; };
-		8E4A7F8C255AF88100CC0C2D /* ExportCSVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportCSVViewController.swift; sourceTree = "<group>"; };
 		8E4A7F8F255AFD9F00CC0C2D /* CSVWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVWriter.swift; sourceTree = "<group>"; };
 		8E4A85D5251A37600077CDAC /* AirPodsProMotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirPodsProMotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4A85D8251A37600077CDAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
 				8EF9EA04251B690C00D239C4 /* SK3DViewController.swift */,
-				8E4A7F8C255AF88100CC0C2D /* ExportCSVViewController.swift */,
 				1097353A2B855D6F00FB0214 /* Objects */,
 				8E4A85E1251A37610077CDAC /* Assets.xcassets */,
 				8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */,
@@ -176,7 +173,6 @@
 				8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */,
 				8E4A85D9251A37600077CDAC /* AppDelegate.swift in Sources */,
 				8E4A7F90255AFD9F00CC0C2D /* CSVWriter.swift in Sources */,
-				8E4A7F8D255AF88100CC0C2D /* ExportCSVViewController.swift in Sources */,
 				8E176586282AAB5B00AE621C /* AlertViews.swift in Sources */,
 				8E4A85DB251A37600077CDAC /* SceneDelegate.swift in Sources */,
 				8EF9EA05251B690C00D239C4 /* SK3DViewController.swift in Sources */,
