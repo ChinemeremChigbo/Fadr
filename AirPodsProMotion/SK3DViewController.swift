@@ -30,7 +30,7 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate {
         let middlePoint = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         
         // Calculate the radius of the circle
-        let radius: CGFloat = 50.0
+        let radius: CGFloat = 5.0
         
         // Create a UIBezierPath for the circle
         let circlePath = UIBezierPath(arcCenter: middlePoint, radius: radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
