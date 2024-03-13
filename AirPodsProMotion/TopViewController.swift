@@ -12,7 +12,9 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
+    
     private var items: [UIViewController] = [InformationViewController(), SK3DViewController()]
+    
     private var itemTitle: [String] = ["Information View", "Rotate the Head View"]
     
     
@@ -27,7 +29,6 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
@@ -37,7 +38,6 @@ class TopViewController: UIViewController, UITableViewDataSource, UITableViewDel
         cell.textLabel?.text = itemTitle[indexPath.row]
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
