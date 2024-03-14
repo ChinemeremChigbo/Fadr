@@ -47,8 +47,6 @@ class SK3DViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CB
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        let name = peripheral.name
-        
         if peripheral.name == peripheralName {
             myPeripheral = peripheral
             myPeripheral?.delegate = self
