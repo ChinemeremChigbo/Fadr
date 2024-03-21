@@ -134,16 +134,16 @@
 				1027CA862BACF700001CCADC /* 3D Models */,
 				1027CA7D2BACF6F8001CCADC /* Utils */,
 				108FF0BF2BACF48C00AE6A39 /* Extensions */,
-				108FF0B12BACF44B00AE6A39 /* products.json */,
 				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
 				1027CA782BACF6F8001CCADC /* AppDelegate.swift */,
 				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
 				8EF9EA04251B690C00D239C4 /* SK3DViewController.swift */,
-				8E4A85E1251A37610077CDAC /* Assets.xcassets */,
+				108FF0B12BACF44B00AE6A39 /* products.json */,
 				8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */,
-				8E4A85E6251A37610077CDAC /* Info.plist */,
 				1027CA892BACF8E3001CCADC /* Main.storyboard */,
+				8E4A85E1251A37610077CDAC /* Assets.xcassets */,
+				8E4A85E6251A37610077CDAC /* Info.plist */,
 			);
 			path = Fadr;
 			sourceTree = "<group>";
