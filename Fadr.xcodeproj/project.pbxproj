@@ -14,6 +14,7 @@
 		1027CA872BACF700001CCADC /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA842BACF700001CCADC /* hair_height.scn */; };
 		1027CA882BACF700001CCADC /* Hair.png in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA852BACF700001CCADC /* Hair.png */; };
 		1027CA8A2BACF8E3001CCADC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA892BACF8E3001CCADC /* Main.storyboard */; };
+		1027CA902BACF982001CCADC /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA8F2BACF982001CCADC /* ImageDownloader.swift */; };
 		108FF0B22BACF44B00AE6A39 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0B12BACF44B00AE6A39 /* products.json */; };
 		108FF0C02BACF48C00AE6A39 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0BC2BACF48C00AE6A39 /* ColorExtensions.swift */; };
 		108FF0C12BACF48C00AE6A39 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0BD2BACF48C00AE6A39 /* StringExtensions.swift */; };
@@ -33,6 +34,7 @@
 		1027CA842BACF700001CCADC /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		1027CA852BACF700001CCADC /* Hair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hair.png; sourceTree = "<group>"; };
 		1027CA892BACF8E3001CCADC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1027CA8F2BACF982001CCADC /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		108FF0B12BACF44B00AE6A39 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
 		108FF0BC2BACF48C00AE6A39 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		108FF0BD2BACF48C00AE6A39 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			children = (
 				1027CA772BACF6F8001CCADC /* AlertViews.swift */,
 				1027CA7B2BACF6F8001CCADC /* ObjectCollectionHelper.swift */,
+				1027CA8F2BACF982001CCADC /* ImageDownloader.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				1027CA7E2BACF6F8001CCADC /* AlertViews.swift in Sources */,
 				1027CA822BACF6F8001CCADC /* ObjectCollectionHelper.swift in Sources */,
 				8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */,
+				1027CA902BACF982001CCADC /* ImageDownloader.swift in Sources */,
 				8EF9EA05251B690C00D239C4 /* SK3DViewController.swift in Sources */,
 				108FF0C22BACF48C00AE6A39 /* ViewExtensions.swift in Sources */,
 				108FF0C02BACF48C00AE6A39 /* ColorExtensions.swift in Sources */,
