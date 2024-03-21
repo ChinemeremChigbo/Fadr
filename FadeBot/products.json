@@ -1,0 +1,58 @@
+{ "products":
+    [
+        {
+            "id": "1",
+            "name":  "High Top Fade",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4013793/cdd6def0ef/high-top-fade-3d-model-blend.jpg"
+        },
+        {
+            "id": "2",
+            "name":  "Low Top Fade",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4514121/2c74f5fc37/fade-with-line-3d-model-2c74f5fc37.jpg"
+        },
+        {
+            "id": "3",
+            "name":  "Taper Afro",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4574963/e9350d9fac/taper-afro-ii-3d-model-e9350d9fac.jpg"
+        },
+        {
+            "id": "4",
+            "name":  "Flat Top Fade",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4056273/e613df8cca/flat-top-hair-3d-model-e613df8cca.jpg"
+        },
+        {
+            "id": "5",
+            "name":  "Dread Fade",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4046535/535a50915b/dreads-ponytail-with-fade-3d-model-535a50915b.jpg"
+        },
+        {
+            "id": "6",
+            "name":  "Receding Hairline",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4290966/e5c9eb7d0d/receeding-hairline-3d-model-e5c9eb7d0d.jpg"
+        },
+        {
+            "id": "7",
+            "name":  "Retro Flat Top",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4961344/c3c8531f5e/retro-flat-top-3d-model-c3c8531f5e.jpg"
+        },
+        {
+            "id": "8",
+            "name":  "Loose Curl Afro ",
+            "type": "hair",
+            "imageUrl": "https://img-new.cgtrader.com/items/4972678/7700b2a89f/loose-curl-afro-3d-model-7700b2a89f.jpg"
+        },
+        {
+            "id": "9",
+            "name":  "Beard Fade",
+            "type": "beard",
+            "imageUrl": "https://www.renderhub.com/khaloui/realistic-hair-beard-brows-mustache-p2/realistic-hair-beard-brows-mustache-p2-03.jpg"
+        }
+    ]
+}

@@ -13,6 +13,7 @@
 		108FF0AB2BACF15D00AE6A39 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0A42BACF15D00AE6A39 /* SceneDelegate.swift */; };
 		108FF0AF2BACF23000AE6A39 /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0AC2BACF23000AE6A39 /* hair_height.scn */; };
 		108FF0B02BACF23000AE6A39 /* Hair.png in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0AD2BACF23000AE6A39 /* Hair.png */; };
+		108FF0B22BACF44B00AE6A39 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0B12BACF44B00AE6A39 /* products.json */; };
 		8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A85DC251A37600077CDAC /* InformationViewController.swift */; };
 		8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E1251A37610077CDAC /* Assets.xcassets */; };
 		8E4A85E5251A37610077CDAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */; };
@@ -27,6 +28,7 @@
 		108FF0A42BACF15D00AE6A39 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		108FF0AC2BACF23000AE6A39 /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		108FF0AD2BACF23000AE6A39 /* Hair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hair.png; sourceTree = "<group>"; };
+		108FF0B12BACF44B00AE6A39 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
 		8E4A85D5251A37600077CDAC /* FadeBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FadeBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4A85DC251A37600077CDAC /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		8E4A85E1251A37610077CDAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				108FF0AE2BACF23000AE6A39 /* 3D Models */,
 				108FF0A52BACF15D00AE6A39 /* Utils */,
+				108FF0B12BACF44B00AE6A39 /* products.json */,
 				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
 				8EF9EA04251B690C00D239C4 /* SK3DViewController.swift */,
@@ -157,6 +160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				108FF0B22BACF44B00AE6A39 /* products.json in Resources */,
 				8E4A85E5251A37610077CDAC /* LaunchScreen.storyboard in Resources */,
 				8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */,
 				108FF0AF2BACF23000AE6A39 /* hair_height.scn in Resources */,
