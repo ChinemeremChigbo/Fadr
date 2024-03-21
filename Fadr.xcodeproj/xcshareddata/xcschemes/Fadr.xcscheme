@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8E4A85D4251A37600077CDAC"
-               BuildableName = "FadeBot.app"
-               BlueprintName = "FadeBot"
-               ReferencedContainer = "container:FadeBot.xcodeproj">
+               BuildableName = "Fadr.app"
+               BlueprintName = "Fadr"
+               ReferencedContainer = "container:Fadr.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E4A85D4251A37600077CDAC"
-            BuildableName = "FadeBot.app"
-            BlueprintName = "FadeBot"
-            ReferencedContainer = "container:FadeBot.xcodeproj">
+            BuildableName = "Fadr.app"
+            BlueprintName = "Fadr"
+            ReferencedContainer = "container:Fadr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E4A85D4251A37600077CDAC"
-            BuildableName = "FadeBot.app"
-            BlueprintName = "FadeBot"
-            ReferencedContainer = "container:FadeBot.xcodeproj">
+            BuildableName = "Fadr.app"
+            BlueprintName = "Fadr"
+            ReferencedContainer = "container:Fadr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
