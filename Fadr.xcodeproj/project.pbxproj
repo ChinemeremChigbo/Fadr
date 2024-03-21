@@ -33,8 +33,8 @@
 		1027CAC22BACFADB001CCADC /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAB42BACFADB001CCADC /* ProductPageViewController.swift */; };
 		1027CAC32BACFADB001CCADC /* SK3DViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAB52BACFADB001CCADC /* SK3DViewController.swift */; };
 		1027CAC72BACFADF001CCADC /* CustomizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAC42BACFADF001CCADC /* CustomizeViewController.swift */; };
-		1027CACC2BACFB89001CCADC /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAC82BACFB89001CCADC /* TabBarControllerDelegate.swift */; };
-		1027CACD2BACFB89001CCADC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CACA2BACFB89001CCADC /* TabBarController.swift */; };
+		1027CAD22BACFCC2001CCADC /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */; };
+		1027CAD32BACFCC2001CCADC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAD02BACFCC2001CCADC /* TabBarController.swift */; };
 		108FF0B22BACF44B00AE6A39 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0B12BACF44B00AE6A39 /* products.json */; };
 		108FF0C02BACF48C00AE6A39 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0BC2BACF48C00AE6A39 /* ColorExtensions.swift */; };
 		108FF0C12BACF48C00AE6A39 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0BD2BACF48C00AE6A39 /* StringExtensions.swift */; };
@@ -72,8 +72,8 @@
 		1027CAB42BACFADB001CCADC /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPageViewController.swift; sourceTree = "<group>"; };
 		1027CAB52BACFADB001CCADC /* SK3DViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SK3DViewController.swift; sourceTree = "<group>"; };
 		1027CAC42BACFADF001CCADC /* CustomizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeViewController.swift; sourceTree = "<group>"; };
-		1027CAC82BACFB89001CCADC /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
-		1027CACA2BACFB89001CCADC /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
+		1027CAD02BACFCC2001CCADC /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		108FF0B12BACF44B00AE6A39 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
 		108FF0BC2BACF48C00AE6A39 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		108FF0BD2BACF48C00AE6A39 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -235,22 +235,21 @@
 			path = Customize;
 			sourceTree = "<group>";
 		};
-		1027CAC92BACFB89001CCADC /* Delegates */ = {
+		1027CACF2BACFCC2001CCADC /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				1027CAC82BACFB89001CCADC /* TabBarControllerDelegate.swift */,
+				1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		1027CACB2BACFB89001CCADC /* TabBarController */ = {
+		1027CAD12BACFCC2001CCADC /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				1027CAC92BACFB89001CCADC /* Delegates */,
-				1027CACA2BACFB89001CCADC /* TabBarController.swift */,
+				1027CACF2BACFCC2001CCADC /* Delegates */,
+				1027CAD02BACFCC2001CCADC /* TabBarController.swift */,
 			);
-			name = TabBarController;
-			path = "../../Shopping-App-iOS-MVC-CoreData/Shoppable_App/ShoppableApp/TabBarController";
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		108FF0BF2BACF48C00AE6A39 /* Extensions */ = {
@@ -288,7 +287,7 @@
 				1027CAC62BACFADF001CCADC /* Customize */,
 				108FF0BF2BACF48C00AE6A39 /* Extensions */,
 				1027CA952BACF9D2001CCADC /* Product Helpers */,
-				1027CACB2BACFB89001CCADC /* TabBarController */,
+				1027CAD12BACFCC2001CCADC /* TabBarController */,
 				1027CA7D2BACF6F8001CCADC /* Utils */,
 				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
 				1027CA782BACF6F8001CCADC /* AppDelegate.swift */,
@@ -396,7 +395,7 @@
 				1027CAC12BACFADB001CCADC /* ProductOverviewViewController.swift in Sources */,
 				108FF0C22BACF48C00AE6A39 /* ViewExtensions.swift in Sources */,
 				1027CA992BACF9D2001CCADC /* ProductModels.swift in Sources */,
-				1027CACC2BACFB89001CCADC /* TabBarControllerDelegate.swift in Sources */,
+				1027CAD22BACFCC2001CCADC /* TabBarControllerDelegate.swift in Sources */,
 				1027CA982BACF9D2001CCADC /* ProductInfoHelper.swift in Sources */,
 				108FF0C02BACF48C00AE6A39 /* ColorExtensions.swift in Sources */,
 				1027CAC02BACFADB001CCADC /* ProductOverviewVcCollectionLayout.swift in Sources */,
@@ -404,7 +403,7 @@
 				1027CA832BACF6F8001CCADC /* SceneDelegate.swift in Sources */,
 				1027CABB2BACFADB001CCADC /* ProductCatalogVcCollectionLayout.swift in Sources */,
 				1027CA962BACF9D2001CCADC /* CollectionProductInfoHelper.swift in Sources */,
-				1027CACD2BACFB89001CCADC /* TabBarController.swift in Sources */,
+				1027CAD32BACFCC2001CCADC /* TabBarController.swift in Sources */,
 				1027CA972BACF9D2001CCADC /* ProductAttributedStringHelper.swift in Sources */,
 				1027CAC32BACFADB001CCADC /* SK3DViewController.swift in Sources */,
 			);
