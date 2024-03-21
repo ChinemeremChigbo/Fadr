@@ -61,9 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				1027CA772BACF6F8001CCADC /* AlertViews.swift */,
-				1027CA782BACF6F8001CCADC /* AppDelegate.swift */,
 				1027CA7B2BACF6F8001CCADC /* ObjectCollectionHelper.swift */,
-				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -111,6 +109,8 @@
 				1027CA7D2BACF6F8001CCADC /* Utils */,
 				108FF0BF2BACF48C00AE6A39 /* Extensions */,
 				108FF0B12BACF44B00AE6A39 /* products.json */,
+				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
+				1027CA782BACF6F8001CCADC /* AppDelegate.swift */,
 				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
 				8EF9EA04251B690C00D239C4 /* SK3DViewController.swift */,
