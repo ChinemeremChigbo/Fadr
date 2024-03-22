@@ -25,9 +25,9 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
+	<string>Our app uses bluetooth to find, connect, and transfer data between different devices.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Our acquires motion from AirPods to determine head orientation.</string>
+	<string>Our app acquires motion data from AirPods to determine head orientation.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
