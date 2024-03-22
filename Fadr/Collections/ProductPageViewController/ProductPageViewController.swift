@@ -236,7 +236,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
     
     func SceneSetUp() {
         self.scnView = SCNView(frame: self.view.frame)
-        self.scnView.backgroundColor = UIColor.black
+        self.scnView.backgroundColor = UIColor.systemBackground
         self.scnView.allowsCameraControl = false
         self.scnView.showsStatistics = true
         view.addSubview(self.scnView)
