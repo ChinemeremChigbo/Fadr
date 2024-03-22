@@ -22,7 +22,7 @@ extension ProductCatalogViewController: UICollectionViewDelegateFlowLayout {
     
     // PORTRAIT
     let portraitWidth = (view.frame.width/2)-1
-    return CGSize(width: portraitWidth, height: portraitWidth*1.2)
+    return CGSize(width: portraitWidth, height: portraitWidth*1.15)
   }
   
   
