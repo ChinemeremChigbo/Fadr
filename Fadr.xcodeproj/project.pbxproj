@@ -35,6 +35,17 @@
 		1027CAC72BACFADF001CCADC /* CustomizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAC42BACFADF001CCADC /* CustomizeViewController.swift */; };
 		1027CAD22BACFCC2001CCADC /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */; };
 		1027CAD32BACFCC2001CCADC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAD02BACFCC2001CCADC /* TabBarController.swift */; };
+		1027CAD82BAD31AA001CCADC /* high_top_fade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CAD72BAD31AA001CCADC /* high_top_fade.jpg */; };
+		1027CAE02BAD35E4001CCADC /* receding_hairline.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CAD92BAD35E4001CCADC /* receding_hairline.jpg */; };
+		1027CAE12BAD35E4001CCADC /* retro_flat_top.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CADA2BAD35E4001CCADC /* retro_flat_top.jpg */; };
+		1027CAE22BAD35E4001CCADC /* temple_fade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CADB2BAD35E4001CCADC /* temple_fade.jpg */; };
+		1027CAE32BAD35E4001CCADC /* taper_afro.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CADC2BAD35E4001CCADC /* taper_afro.jpg */; };
+		1027CAE42BAD35E4001CCADC /* dread_fade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CADD2BAD35E4001CCADC /* dread_fade.jpg */; };
+		1027CAE52BAD35E4001CCADC /* flat_top_fade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CADE2BAD35E4001CCADC /* flat_top_fade.jpg */; };
+		1027CAE62BAD35E4001CCADC /* low_top_fade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CADF2BAD35E4001CCADC /* low_top_fade.jpg */; };
+		1027CAE82BAD3A00001CCADC /* beard_fade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1027CAE72BAD3A00001CCADC /* beard_fade.jpg */; };
+		1027CAEB2BAD3D26001CCADC /* beard_collection.png in Resources */ = {isa = PBXBuildFile; fileRef = 1027CAE92BAD3D26001CCADC /* beard_collection.png */; };
+		1027CAEC2BAD3D26001CCADC /* hair_collection.png in Resources */ = {isa = PBXBuildFile; fileRef = 1027CAEA2BAD3D26001CCADC /* hair_collection.png */; };
 		108FF0B22BACF44B00AE6A39 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0B12BACF44B00AE6A39 /* products.json */; };
 		108FF0C02BACF48C00AE6A39 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0BC2BACF48C00AE6A39 /* ColorExtensions.swift */; };
 		108FF0C12BACF48C00AE6A39 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108FF0BD2BACF48C00AE6A39 /* StringExtensions.swift */; };
@@ -74,6 +85,17 @@
 		1027CAC42BACFADF001CCADC /* CustomizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeViewController.swift; sourceTree = "<group>"; };
 		1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
 		1027CAD02BACFCC2001CCADC /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1027CAD72BAD31AA001CCADC /* high_top_fade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = high_top_fade.jpg; sourceTree = "<group>"; };
+		1027CAD92BAD35E4001CCADC /* receding_hairline.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receding_hairline.jpg; sourceTree = "<group>"; };
+		1027CADA2BAD35E4001CCADC /* retro_flat_top.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = retro_flat_top.jpg; sourceTree = "<group>"; };
+		1027CADB2BAD35E4001CCADC /* temple_fade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = temple_fade.jpg; sourceTree = "<group>"; };
+		1027CADC2BAD35E4001CCADC /* taper_afro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = taper_afro.jpg; sourceTree = "<group>"; };
+		1027CADD2BAD35E4001CCADC /* dread_fade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dread_fade.jpg; sourceTree = "<group>"; };
+		1027CADE2BAD35E4001CCADC /* flat_top_fade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flat_top_fade.jpg; sourceTree = "<group>"; };
+		1027CADF2BAD35E4001CCADC /* low_top_fade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = low_top_fade.jpg; sourceTree = "<group>"; };
+		1027CAE72BAD3A00001CCADC /* beard_fade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beard_fade.jpg; sourceTree = "<group>"; };
+		1027CAE92BAD3D26001CCADC /* beard_collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beard_collection.png; sourceTree = "<group>"; };
+		1027CAEA2BAD3D26001CCADC /* hair_collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hair_collection.png; sourceTree = "<group>"; };
 		108FF0B12BACF44B00AE6A39 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
 		108FF0BC2BACF48C00AE6A39 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		108FF0BD2BACF48C00AE6A39 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -108,13 +130,13 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		1027CA862BACF700001CCADC /* 3D Models */ = {
+		1027CA862BACF700001CCADC /* 3D */ = {
 			isa = PBXGroup;
 			children = (
 				1027CA842BACF700001CCADC /* hair_height.scn */,
 				1027CA852BACF700001CCADC /* Hair.png */,
 			);
-			path = "3D Models";
+			path = 3D;
 			sourceTree = "<group>";
 		};
 		1027CA952BACF9D2001CCADC /* Product Helpers */ = {
@@ -252,6 +274,24 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
+		1027CAD42BAD2FE7001CCADC /* Pictures */ = {
+			isa = PBXGroup;
+			children = (
+				1027CAE92BAD3D26001CCADC /* beard_collection.png */,
+				1027CAE72BAD3A00001CCADC /* beard_fade.jpg */,
+				1027CADD2BAD35E4001CCADC /* dread_fade.jpg */,
+				1027CADE2BAD35E4001CCADC /* flat_top_fade.jpg */,
+				1027CAEA2BAD3D26001CCADC /* hair_collection.png */,
+				1027CAD72BAD31AA001CCADC /* high_top_fade.jpg */,
+				1027CADF2BAD35E4001CCADC /* low_top_fade.jpg */,
+				1027CAD92BAD35E4001CCADC /* receding_hairline.jpg */,
+				1027CADA2BAD35E4001CCADC /* retro_flat_top.jpg */,
+				1027CADC2BAD35E4001CCADC /* taper_afro.jpg */,
+				1027CADB2BAD35E4001CCADC /* temple_fade.jpg */,
+			);
+			path = Pictures;
+			sourceTree = "<group>";
+		};
 		108FF0BF2BACF48C00AE6A39 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,22 +322,23 @@
 		8E4A85D7251A37600077CDAC /* Fadr */ = {
 			isa = PBXGroup;
 			children = (
-				1027CA862BACF700001CCADC /* 3D Models */,
+				1027CA862BACF700001CCADC /* 3D */,
 				1027CAB72BACFADB001CCADC /* Collections */,
 				1027CAC62BACFADF001CCADC /* Customize */,
 				108FF0BF2BACF48C00AE6A39 /* Extensions */,
+				1027CAD42BAD2FE7001CCADC /* Pictures */,
 				1027CA952BACF9D2001CCADC /* Product Helpers */,
 				1027CAD12BACFCC2001CCADC /* TabBarController */,
 				1027CA7D2BACF6F8001CCADC /* Utils */,
-				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
 				1027CA782BACF6F8001CCADC /* AppDelegate.swift */,
-				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
-				108FF0B12BACF44B00AE6A39 /* products.json */,
-				8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */,
+				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
+				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				1027CA892BACF8E3001CCADC /* Main.storyboard */,
-				8E4A85E1251A37610077CDAC /* Assets.xcassets */,
+				8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */,
+				108FF0B12BACF44B00AE6A39 /* products.json */,
 				8E4A85E6251A37610077CDAC /* Info.plist */,
+				8E4A85E1251A37610077CDAC /* Assets.xcassets */,
 			);
 			path = Fadr;
 			sourceTree = "<group>";
@@ -360,14 +401,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1027CAEB2BAD3D26001CCADC /* beard_collection.png in Resources */,
+				1027CAE22BAD35E4001CCADC /* temple_fade.jpg in Resources */,
+				1027CAE02BAD35E4001CCADC /* receding_hairline.jpg in Resources */,
+				1027CAEC2BAD3D26001CCADC /* hair_collection.png in Resources */,
+				1027CAE62BAD35E4001CCADC /* low_top_fade.jpg in Resources */,
+				1027CAE42BAD35E4001CCADC /* dread_fade.jpg in Resources */,
 				108FF0B22BACF44B00AE6A39 /* products.json in Resources */,
 				1027CA872BACF700001CCADC /* hair_height.scn in Resources */,
 				1027CAB82BACFADB001CCADC /* ProductCatalogCell.xib in Resources */,
 				1027CA882BACF700001CCADC /* Hair.png in Resources */,
+				1027CAE12BAD35E4001CCADC /* retro_flat_top.jpg in Resources */,
 				1027CA8A2BACF8E3001CCADC /* Main.storyboard in Resources */,
 				8E4A85E5251A37610077CDAC /* LaunchScreen.storyboard in Resources */,
+				1027CAE52BAD35E4001CCADC /* flat_top_fade.jpg in Resources */,
+				1027CAD82BAD31AA001CCADC /* high_top_fade.jpg in Resources */,
+				1027CAE82BAD3A00001CCADC /* beard_fade.jpg in Resources */,
 				8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */,
 				1027CABD2BACFADB001CCADC /* ProductCollectionCell.xib in Resources */,
+				1027CAE32BAD35E4001CCADC /* taper_afro.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
