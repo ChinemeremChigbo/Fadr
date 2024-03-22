@@ -30,7 +30,6 @@
 		1027CAC02BACFADB001CCADC /* ProductOverviewVcCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAB02BACFADB001CCADC /* ProductOverviewVcCollectionLayout.swift */; };
 		1027CAC12BACFADB001CCADC /* ProductOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAB22BACFADB001CCADC /* ProductOverviewViewController.swift */; };
 		1027CAC22BACFADB001CCADC /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAB42BACFADB001CCADC /* ProductPageViewController.swift */; };
-		1027CAC32BACFADB001CCADC /* SK3DViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAB52BACFADB001CCADC /* SK3DViewController.swift */; };
 		1027CAC72BACFADF001CCADC /* CustomizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAC42BACFADF001CCADC /* CustomizeViewController.swift */; };
 		1027CAD22BACFCC2001CCADC /* TabBarControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */; };
 		1027CAD32BACFCC2001CCADC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CAD02BACFCC2001CCADC /* TabBarController.swift */; };
@@ -52,7 +51,6 @@
 		8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A85DC251A37600077CDAC /* InformationViewController.swift */; };
 		8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E1251A37610077CDAC /* Assets.xcassets */; };
 		8E4A85E5251A37610077CDAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */; };
-		8EB3738B2527649700B9B3C0 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3738A2527649700B9B3C0 /* TopViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,7 +77,6 @@
 		1027CAB02BACFADB001CCADC /* ProductOverviewVcCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductOverviewVcCollectionLayout.swift; sourceTree = "<group>"; };
 		1027CAB22BACFADB001CCADC /* ProductOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductOverviewViewController.swift; sourceTree = "<group>"; };
 		1027CAB42BACFADB001CCADC /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPageViewController.swift; sourceTree = "<group>"; };
-		1027CAB52BACFADB001CCADC /* SK3DViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SK3DViewController.swift; sourceTree = "<group>"; };
 		1027CAC42BACFADF001CCADC /* CustomizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeViewController.swift; sourceTree = "<group>"; };
 		1027CACE2BACFCC2001CCADC /* TabBarControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerDelegate.swift; sourceTree = "<group>"; };
 		1027CAD02BACFCC2001CCADC /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		8E4A85E1251A37610077CDAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E4A85E4251A37610077CDAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E4A85E6251A37610077CDAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EB3738A2527649700B9B3C0 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				1027CAB42BACFADB001CCADC /* ProductPageViewController.swift */,
-				1027CAB52BACFADB001CCADC /* SK3DViewController.swift */,
 			);
 			path = ProductPageViewController;
 			sourceTree = "<group>";
@@ -330,7 +325,6 @@
 				1027CA782BACF6F8001CCADC /* AppDelegate.swift */,
 				8E4A85DC251A37600077CDAC /* InformationViewController.swift */,
 				1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */,
-				8EB3738A2527649700B9B3C0 /* TopViewController.swift */,
 				1027CA892BACF8E3001CCADC /* Main.storyboard */,
 				8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */,
 				108FF0B12BACF44B00AE6A39 /* products.json */,
@@ -431,7 +425,6 @@
 				1027CA7F2BACF6F8001CCADC /* AppDelegate.swift in Sources */,
 				1027CAC22BACFADB001CCADC /* ProductPageViewController.swift in Sources */,
 				1027CABA2BACFADB001CCADC /* ProductCatalogVcCollectionDelegate.swift in Sources */,
-				8EB3738B2527649700B9B3C0 /* TopViewController.swift in Sources */,
 				108FF0C12BACF48C00AE6A39 /* StringExtensions.swift in Sources */,
 				1027CA7E2BACF6F8001CCADC /* AlertViews.swift in Sources */,
 				1027CA822BACF6F8001CCADC /* ObjectCollectionHelper.swift in Sources */,
@@ -453,7 +446,6 @@
 				1027CA962BACF9D2001CCADC /* CollectionProductInfoHelper.swift in Sources */,
 				1027CAD32BACFCC2001CCADC /* TabBarController.swift in Sources */,
 				1027CA972BACF9D2001CCADC /* ProductAttributedStringHelper.swift in Sources */,
-				1027CAC32BACFADB001CCADC /* SK3DViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
