@@ -65,10 +65,9 @@ struct JsonLoader {
                 let newArr = array.filter {
                     $0.type == typeRawValue
                 }
-                let imageUrl = (typeRawValue == "hair") ? "https://cdn.discordapp.com/attachments/1174549760322043968/1218244645721477193/Hair.png?ex=6606f5bd&is=65f480bd&hm=1608823c9e26008d3f2952ea70b93717d2b6940318e0a8d41f16c784288e641a&" : "https://cdn.discordapp.com/attachments/1174549760322043968/1218244645377540096/Beard.png?ex=6606f5bd&is=65f480bd&hm=7c40bab1ba284bb20eb531f2cbae556f1488ac7c85c4747eacefd46dc60be0f6&"
                 
                 let collection = ProductCollection(
-                    type: typeRawValue, products: newArr, imageUrl: imageUrl)
+                    type: typeRawValue, products: newArr, imageFileName: type.productTypeImageFileName)
                 
                 productCollections.append(collection)
             }

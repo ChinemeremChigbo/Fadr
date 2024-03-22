@@ -20,5 +20,5 @@ struct Product: Codable {
 struct ProductCollection {
     let type: String
     let products: [Product]
-    let imageUrl: String?
+    let imageFileName: String?
 }

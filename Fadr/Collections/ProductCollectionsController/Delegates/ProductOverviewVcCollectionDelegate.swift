@@ -32,36 +32,14 @@ extension ProductOverviewViewController: UICollectionViewDelegate, UICollectionV
     cell.collectionNameLabel.text = CollectionProductInfoHelper
       .getProductCollectionTypeName(from: indexPath.row)
     
-    // Load the image of the product type from a URL
-    if
-      let firstItem = productCollections[indexPath.row].imageUrl,
-      let productImageURL = ProductInfoHelper.canCreateImageUrl(from: firstItem)
-    {
-      // Attempt to load image
-      let token = imageLoader?.loadImage(productImageURL) { result in
-        do {
-          let image = try result.get()
-          
-          // The UI must be accessed through the main thread
-          DispatchQueue.main.async {
-            cell.productImageView.image = image
-          }
+    
+    // Load the image of the product from imageFileName
+    if let imageFileName = productCollections[indexPath.row].imageFileName,
+       let image = UIImage(named: imageFileName) {
+        // The UI must be accessed through the main thread
+        DispatchQueue.main.async {
+          cell.productImageView.image = image
         }
-        catch {
-          print("ERROR loading image with error: \(error)!")
-        }
-      }
-      
-      /*
-       When the cell is being reused, cancel loading the image.
-       Use [unowned self] to avoid retention of self
-       in the cell's onReuse() closure.
-       */
-      cell.onReuse = { [unowned self] in
-        if let token = token {
-          self.imageLoader?.cancelImageDownload(token)
-        }
-      }
     }
     
     return cell
