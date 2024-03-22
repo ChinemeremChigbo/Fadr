@@ -110,7 +110,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Simple 3D View"
         self.view.backgroundColor = .systemBackground
         headphone.delegate = self
         bluetooth.delegate = self
@@ -162,10 +161,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             colorLabel.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             
             resetOrientationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            resetOrientationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            resetOrientationButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             
             connectClippersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            connectClippersButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            connectClippersButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 150)
         ])
         
     }
