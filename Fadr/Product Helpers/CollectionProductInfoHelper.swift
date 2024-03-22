@@ -8,13 +8,23 @@ enum CollectionType: String, CaseIterable {
     case hair
     case beard
     
-    // Returns the title to use in ProductCatalogViewController
+    // Returns the title to use
     var productTypeTitle: String {
         switch self {
         case .hair:
             return "Hair"
         case .beard:
             return "Beard"
+        }
+    }
+    
+    // Returns the image file name to use
+    var productTypeImageFileName: String {
+        switch self {
+        case .hair:
+            return "hair_collection.png"
+        case .beard:
+            return "beard_collection.png"
         }
     }
 }
