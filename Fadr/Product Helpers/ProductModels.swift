@@ -12,6 +12,7 @@ struct Product: Codable {
   let name: String
   let type: String
   let imageUrl: String?
+  let imageFileName: String?
 }
 
 // MARK: - Product Collection 
