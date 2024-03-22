@@ -31,40 +31,14 @@ extension ProductCatalogViewController: UICollectionViewDelegate, UICollectionVi
     // Add the name of the product
     cell.productNameLabel.attributedText = ProductAttributedStringHelper
       .getAttributedName(from: currentProduct.name, withSize: 16)
-    
-    /*
-     Load the image of the product from a URL
-     */
-    if let imageURL = ProductInfoHelper.canCreateImageUrl(from: currentProduct.imageUrl) {
-      
-      // Attempt to load image
-      let token = imageLoader?.loadImage(imageURL) { result in
-        do {
-          let image = try result.get()
-          
-          // The UI must be accessed through the main thread
-          DispatchQueue.main.async {
-            cell.productImageView.image = image
-          }
-        }
-        catch {
-          print("ERROR loading image with error: \(error)!")
-        }
+
+      // Load the image of the product from imageFileName
+      if let imageFileName = currentProduct.imageFileName,
+         let image = UIImage(named: imageFileName) {
+          cell.productImageView.image = image
       }
       
-      /*
-       When the cell is being reused, cancel loading the image.
-       Use [unowned self] to avoid retention of self
-       in the cell's onReuse() closure.
-       */
-      cell.onReuse = { [unowned self] in
-        if let token = token {
-          self.imageLoader?.cancelImageDownload(token)
-        }
-      }
-    }
-    
-    return cell
+      return cell
   }
   
   
