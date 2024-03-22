@@ -5,63 +5,72 @@
             "name":  "High Top Fade",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4013793/cdd6def0ef/high-top-fade-3d-model-blend.jpg",
-            "imageFileName": "high_top_fade.jpg"
+            "imageFileName": "high_top_fade.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "2",
             "name":  "Low Top Fade",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4514121/2c74f5fc37/fade-with-line-3d-model-2c74f5fc37.jpg",
-            "imageFileName": "low_top_fade.jpg"
+            "imageFileName": "low_top_fade.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "3",
             "name":  "Taper Afro",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4574963/e9350d9fac/taper-afro-ii-3d-model-e9350d9fac.jpg",
-            "imageFileName": "taper_afro.jpg"
+            "imageFileName": "taper_afro.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "4",
             "name":  "Flat Top Fade",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4056273/e613df8cca/flat-top-hair-3d-model-e613df8cca.jpg",
-            "imageFileName": "flat_top_fade.jpg"
+            "imageFileName": "flat_top_fade.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "5",
             "name":  "Dread Fade",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4046535/535a50915b/dreads-ponytail-with-fade-3d-model-535a50915b.jpg",
-            "imageFileName": "dread_fade.jpg"
+            "imageFileName": "dread_fade.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "6",
             "name":  "Receding Hairline",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4290966/e5c9eb7d0d/receeding-hairline-3d-model-e5c9eb7d0d.jpg",
-            "imageFileName": "receding_hairline.jpg"
+            "imageFileName": "receding_hairline.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "7",
             "name":  "Retro Flat Top",
             "type": "hair",
             "imageUrl": "https://img-new.cgtrader.com/items/4961344/c3c8531f5e/retro-flat-top-3d-model-c3c8531f5e.jpg",
-            "imageFileName": "retro_flat_top.jpg"
+            "imageFileName": "retro_flat_top.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "8",
             "name":  "Temple Fade",
             "type": "hair",
             "imageUrl": "https://cdnb.artstation.com/p/marketplace/presentation_assets/001/997/869/large/file.jpg",
-            "imageFileName": "temple_fade.jpg"
+            "imageFileName": "temple_fade.jpg",
+            "modelFileName": "hair_height.scn"
         },
         {
             "id": "9",
             "name":  "Beard Fade",
             "type": "beard",
             "imageUrl": "https://www.renderhub.com/khaloui/realistic-hair-beard-brows-mustache-p2/realistic-hair-beard-brows-mustache-p2-03.jpg",
-            "imageFileName": "beard_fade.jpg"
+            "imageFileName": "beard_fade.jpg",
+            "modelFileName": "hair_height.scn"
         }
     ]
 }

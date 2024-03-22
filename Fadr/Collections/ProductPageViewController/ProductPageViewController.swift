@@ -259,7 +259,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         scene.rootNode.addChildNode(ambientLightNode)
         
         
-        if let url = Bundle.main.url(forResource: "hair_height.scn", withExtension: "scn") {
+        if let url = Bundle.main.url(forResource: productObject?.modelFileName, withExtension: nil) {
             if let loadedScene = try? SCNScene(url: url, options: nil) {
                 for node in loadedScene.rootNode.childNodes as [SCNNode] {
                     scene.rootNode.addChildNode(node)
