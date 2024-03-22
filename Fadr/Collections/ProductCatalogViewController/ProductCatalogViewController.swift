@@ -21,10 +21,7 @@ class ProductCatalogViewController: UIViewController {
   @IBOutlet weak var productCatalogCollectionView: UICollectionView!
   var productCellID = "ProductCatalogCell"
   
-  // Image Loader
-  var imageLoader: ImageDownloader?
-  
-  
+
   // MARK: - View Controller's Life Cycle
    
   override func viewDidLoad() {

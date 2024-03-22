@@ -11,9 +11,6 @@ class TabBarController: UITabBarController {
   // Tab Bar
   var currentTabIndex = 0
   
-  // Image Loader
-  var imageLoader: ImageDownloader?
-  
   // Products
   var productCollections: [ProductCollection] = []
   
@@ -26,9 +23,6 @@ class TabBarController: UITabBarController {
     
     // TabBar's Delegate
     delegate = self
-    
-    // Image Loader
-    imageLoader = ImageDownloader()
     
     // Load JSON Data
     loadJsonData()
@@ -81,7 +75,6 @@ extension TabBarController {
     {
       navController.navigationBar.prefersLargeTitles = true
       rootController.productCollections = productCollections
-      rootController.imageLoader = imageLoader
     }
   }
   

@@ -14,7 +14,6 @@
 		1027CA872BACF700001CCADC /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA842BACF700001CCADC /* hair_height.scn */; };
 		1027CA882BACF700001CCADC /* Hair.png in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA852BACF700001CCADC /* Hair.png */; };
 		1027CA8A2BACF8E3001CCADC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA892BACF8E3001CCADC /* Main.storyboard */; };
-		1027CA902BACF982001CCADC /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA8F2BACF982001CCADC /* ImageDownloader.swift */; };
 		1027CA962BACF9D2001CCADC /* CollectionProductInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */; };
 		1027CA972BACF9D2001CCADC /* ProductAttributedStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA922BACF9D2001CCADC /* ProductAttributedStringHelper.swift */; };
 		1027CA982BACF9D2001CCADC /* ProductInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA932BACF9D2001CCADC /* ProductInfoHelper.swift */; };
@@ -64,7 +63,6 @@
 		1027CA842BACF700001CCADC /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		1027CA852BACF700001CCADC /* Hair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hair.png; sourceTree = "<group>"; };
 		1027CA892BACF8E3001CCADC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		1027CA8F2BACF982001CCADC /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionProductInfoHelper.swift; sourceTree = "<group>"; };
 		1027CA922BACF9D2001CCADC /* ProductAttributedStringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAttributedStringHelper.swift; sourceTree = "<group>"; };
 		1027CA932BACF9D2001CCADC /* ProductInfoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductInfoHelper.swift; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 			children = (
 				1027CA772BACF6F8001CCADC /* AlertViews.swift */,
 				1027CA7B2BACF6F8001CCADC /* ObjectCollectionHelper.swift */,
-				1027CA8F2BACF982001CCADC /* ImageDownloader.swift */,
 				1027CA9A2BACF9F1001CCADC /* JsonLoader.swift */,
 			);
 			path = Utils;
@@ -439,7 +436,6 @@
 				1027CA7E2BACF6F8001CCADC /* AlertViews.swift in Sources */,
 				1027CA822BACF6F8001CCADC /* ObjectCollectionHelper.swift in Sources */,
 				8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */,
-				1027CA902BACF982001CCADC /* ImageDownloader.swift in Sources */,
 				1027CABC2BACFADB001CCADC /* ProductCatalogViewController.swift in Sources */,
 				1027CABE2BACFADB001CCADC /* ProductCollectionCell.swift in Sources */,
 				1027CAB92BACFADB001CCADC /* ProductCatalogCell.swift in Sources */,

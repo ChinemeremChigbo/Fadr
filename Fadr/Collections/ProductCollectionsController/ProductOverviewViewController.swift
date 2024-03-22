@@ -20,10 +20,6 @@ class ProductOverviewViewController: UIViewController {
   var userTappedProductCollection: [Product] = []
   var userTappedProductCollectionName = ""
   
-  // Image Loader
-  var imageLoader: ImageDownloader?
-  
-  
   // MARK: - View Controller's Life Cycle
   
   override func viewDidLoad() {
@@ -66,7 +62,6 @@ class ProductOverviewViewController: UIViewController {
       let viewController = segue.destination as! ProductCatalogViewController
       viewController.productList = userTappedProductCollection
       viewController.collectionName = userTappedProductCollectionName
-      viewController.imageLoader = imageLoader
       viewController.backButtonTitle = screenTitle
     }
   }
