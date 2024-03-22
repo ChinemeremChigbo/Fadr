@@ -11,7 +11,6 @@ struct Product: Codable {
   let id: String
   let name: String
   let type: String
-  let imageUrl: String?
   let imageFileName: String?
   let modelFileName: String?
 }

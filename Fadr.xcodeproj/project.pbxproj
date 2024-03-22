@@ -16,7 +16,6 @@
 		1027CA8A2BACF8E3001CCADC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA892BACF8E3001CCADC /* Main.storyboard */; };
 		1027CA962BACF9D2001CCADC /* CollectionProductInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */; };
 		1027CA972BACF9D2001CCADC /* ProductAttributedStringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA922BACF9D2001CCADC /* ProductAttributedStringHelper.swift */; };
-		1027CA982BACF9D2001CCADC /* ProductInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA932BACF9D2001CCADC /* ProductInfoHelper.swift */; };
 		1027CA992BACF9D2001CCADC /* ProductModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA942BACF9D2001CCADC /* ProductModels.swift */; };
 		1027CA9B2BACF9F1001CCADC /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA9A2BACF9F1001CCADC /* JsonLoader.swift */; };
 		1027CAB82BACFADB001CCADC /* ProductCatalogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1027CAA22BACFADB001CCADC /* ProductCatalogCell.xib */; };
@@ -63,7 +62,6 @@
 		1027CA892BACF8E3001CCADC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionProductInfoHelper.swift; sourceTree = "<group>"; };
 		1027CA922BACF9D2001CCADC /* ProductAttributedStringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAttributedStringHelper.swift; sourceTree = "<group>"; };
-		1027CA932BACF9D2001CCADC /* ProductInfoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductInfoHelper.swift; sourceTree = "<group>"; };
 		1027CA942BACF9D2001CCADC /* ProductModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductModels.swift; sourceTree = "<group>"; };
 		1027CA9A2BACF9F1001CCADC /* JsonLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonLoader.swift; sourceTree = "<group>"; };
 		1027CAA22BACFADB001CCADC /* ProductCatalogCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCatalogCell.xib; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			children = (
 				1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */,
 				1027CA922BACF9D2001CCADC /* ProductAttributedStringHelper.swift */,
-				1027CA932BACF9D2001CCADC /* ProductInfoHelper.swift */,
 				1027CA942BACF9D2001CCADC /* ProductModels.swift */,
 			);
 			path = "Product Helpers";
@@ -437,7 +434,6 @@
 				108FF0C22BACF48C00AE6A39 /* ViewExtensions.swift in Sources */,
 				1027CA992BACF9D2001CCADC /* ProductModels.swift in Sources */,
 				1027CAD22BACFCC2001CCADC /* TabBarControllerDelegate.swift in Sources */,
-				1027CA982BACF9D2001CCADC /* ProductInfoHelper.swift in Sources */,
 				108FF0C02BACF48C00AE6A39 /* ColorExtensions.swift in Sources */,
 				1027CAC02BACFADB001CCADC /* ProductOverviewVcCollectionLayout.swift in Sources */,
 				1027CA9B2BACF9F1001CCADC /* JsonLoader.swift in Sources */,
