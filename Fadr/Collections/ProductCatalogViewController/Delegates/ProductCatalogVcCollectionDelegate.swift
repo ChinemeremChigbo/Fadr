@@ -35,7 +35,10 @@ extension ProductCatalogViewController: UICollectionViewDelegate, UICollectionVi
       // Load the image of the product from imageFileName
       if let imageFileName = currentProduct.imageFileName,
          let image = UIImage(named: imageFileName) {
-          cell.productImageView.image = image
+          // The UI must be accessed through the main thread
+          DispatchQueue.main.async {
+            cell.productImageView.image = image
+          }
       }
       
       return cell
