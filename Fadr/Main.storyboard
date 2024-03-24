@@ -36,7 +36,7 @@
         <!--Product Overview View Controller-->
         <scene sceneID="x9X-AB-LUF">
             <objects>
-                <viewController storyboardIdentifier="ProductOverviewViewController" id="DM0-MW-wue" customClass="ProductOverviewViewController" customModule="Shoppable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductOverviewViewController" id="DM0-MW-wue" customClass="ProductOverviewViewController" customModule="Fadr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oac-9e-aYb">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -87,7 +87,7 @@
         <!--Product Catalog View Controller-->
         <scene sceneID="Xfb-WD-74H">
             <objects>
-                <viewController id="1P5-f2-Mpp" customClass="ProductCatalogViewController" customModule="Shoppable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1P5-f2-Mpp" customClass="ProductCatalogViewController" customModule="Fadr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2WU-cC-WUD">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,7 +138,7 @@
         <!--Product Page View Controller-->
         <scene sceneID="8Xk-yp-n3O">
             <objects>
-                <viewController id="4Bf-Db-s6z" customClass="ProductPageViewController" customModule="Shoppable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4Bf-Db-s6z" customClass="ProductPageViewController" customModule="Fadr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uXJ-91-HTX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -154,7 +154,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="zi7-VR-4NF">
             <objects>
-                <tabBarController id="XIg-eJ-SWr" customClass="TabBarController" customModule="Shoppable" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="XIg-eJ-SWr" customClass="TabBarController" customModule="Fadr" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iGo-11-dVL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -193,7 +193,7 @@
         <!--Customize View Controller-->
         <scene sceneID="4Tj-ga-5bp">
             <objects>
-                <viewController id="Zjk-ca-uad" userLabel="Customize View Controller" customClass="CustomizeViewController" customModule="Shoppable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zjk-ca-uad" userLabel="Customize View Controller" customClass="CustomizeViewController" customModule="Fadr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1oE-SE-E3W">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

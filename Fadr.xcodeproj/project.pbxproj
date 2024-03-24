@@ -289,7 +289,7 @@
 				10613EEC2BB0A1E8008CA5CC /* ViewExtensions.swift */,
 			);
 			name = Extensions;
-			path = "../../Shopping-App-iOS-MVC-CoreData/Shoppable_App/ShoppableApp/Extensions";
+			path = "Extensions";
 			sourceTree = "<group>";
 		};
 		8E4A85CC251A37600077CDAC = {
