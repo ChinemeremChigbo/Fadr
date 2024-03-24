@@ -1,14 +1,75 @@
 import UIKit
+import CoreBluetooth
 import UserNotifications
 
-class CustomizeViewController: UIViewController {
+class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
     
     // MARK: - View Controller's Life Cycle
     let slider = UISlider()
     let valueLabel = UILabel()
     
+    var bluetooth = CBCentralManager()
+    let serviceUUID = CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371e")
+    let peripheralName = "BLETest"
+    var myPeripheral:CBPeripheral?
+    var myCharacteristic:CBCharacteristic?
+    
+    let connectClippersButton = UIButton(type: .system)
+    
+    func sendText(text: String) {
+        if (myPeripheral != nil && myCharacteristic != nil) {
+            let data = text.data(using: .utf8)
+            myPeripheral!.writeValue(data!,  for: myCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+        }
+    }
+
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        if peripheral.name == peripheralName {
+            myPeripheral = peripheral
+            myPeripheral?.delegate = self
+            bluetooth.connect(myPeripheral!, options: nil)
+            bluetooth.stopScan()
+        }
+    }
+    
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        switch central.state {
+        case .poweredOff:
+            print("Bluetooth is switched off")
+        case .poweredOn:
+            print("Bluetooth is switched on")
+        case .unsupported:
+            print("Bluetooth is not supported")
+        default:
+            print("Unknown state")
+        }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        peripheral.discoverServices([serviceUUID])
+        print("Connected to " +  peripheral.name!)
+        connectClippersButton.setTitle("Connected", for: .normal)
+        
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("Disconnected from " +  peripheral.name!)
+        
+        myPeripheral = nil
+        myCharacteristic = nil
+        
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print(error!)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        bluetooth.delegate = self
+
         
         // Navigation Bar
         setupNavigationBar()
@@ -37,11 +98,18 @@ class CustomizeViewController: UIViewController {
         }
     }
     
+    @objc func connectClippers() {
+        print("Scanning")
+        bluetooth.stopScan()
+        connectClippersButton.setTitle("Scanning...", for: .normal)
+        bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
+    }
+    
 }
 
 
 // MARK: - Setup UI
-extension CustomizeViewController {
+extension CustomizeViewController: CBPeripheralDelegate {
     
     func setupNavigationBar() {
         title = "Customize"
@@ -57,22 +125,36 @@ extension CustomizeViewController {
         valueLabel.textAlignment = .center
         valueLabel.text = "Value: \(Int(slider.value))"
         
+        // Rotate slider
+        slider.transform = CGAffineTransform(rotationAngle: -.pi / 2)
+        connectClippersButton.setTitle("Connect Clippers", for: .normal)
+        connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
+        
+        
         // Add subviews
         view.addSubview(slider)
         view.addSubview(valueLabel)
+        view.addSubview(connectClippersButton)
+
         
         // Constraints
         slider.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        connectClippersButton.translatesAutoresizingMaskIntoConstraints = false
+
         
         NSLayoutConstraint.activate([
             slider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            slider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            slider.widthAnchor.constraint(equalToConstant: 200),
+            slider.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+            slider.widthAnchor.constraint(equalToConstant: 300),
             
             valueLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             valueLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            valueLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            valueLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            connectClippersButton.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: 20),
+            connectClippersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            
         ])
     }
     
@@ -80,5 +162,18 @@ extension CustomizeViewController {
     
     @objc private func sliderValueChanged(_ sender: UISlider) {
         valueLabel.text = "Value: \(Int(sender.value))"
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+        
+        for service in services {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { return }
+        myCharacteristic = characteristics[0]
     }
 }
