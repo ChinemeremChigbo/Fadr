@@ -162,6 +162,7 @@ extension CustomizeViewController: CBPeripheralDelegate {
     
     @objc private func sliderValueChanged(_ sender: UISlider) {
         valueLabel.text = "Value: \(Int(sender.value))"
+        sendText(text: "\(Int(sender.value))")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
