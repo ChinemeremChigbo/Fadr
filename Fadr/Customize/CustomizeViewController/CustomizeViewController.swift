@@ -16,6 +16,8 @@ class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
     
     let connectClippersButton = UIButton(type: .system)
     
+    
+    
     func sendText(text: String) {
         if (myPeripheral != nil && myCharacteristic != nil) {
             let data = text.data(using: .utf8)
@@ -118,12 +120,12 @@ extension CustomizeViewController: CBPeripheralDelegate {
         // Slider
         slider.minimumValue = 0
         slider.maximumValue = 100
-        slider.value = 50 // Initial value
+        slider.value = (slider.minimumValue + slider.maximumValue) / 2
         slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         
         // Label to display slider value
         valueLabel.textAlignment = .center
-        valueLabel.text = "Value: \(Int(slider.value))"
+        valueLabel.text = "Value: (Move slider to set)"
         
         // Rotate slider
         slider.transform = CGAffineTransform(rotationAngle: -.pi / 2)
@@ -161,9 +163,28 @@ extension CustomizeViewController: CBPeripheralDelegate {
     // MARK: - Actions
     
     @objc private func sliderValueChanged(_ sender: UISlider) {
-        valueLabel.text = "Value: \(Int(sender.value))"
-        sendText(text: "\(Int(sender.value))")
+        let inputValue = sender.value
+        let inputMin = sender.minimumValue
+        let inputMax = sender.maximumValue
+        let outputMin: Float = 0
+        let outputMax: Float = 180
+        
+        let clampedValue = clamp(inputValue, inputMin, inputMax)
+        let scaledValue = scale(clampedValue, inputMin, inputMax, outputMin, outputMax)
+        print("\(Int(scaledValue))")
+
+        valueLabel.text = "Value: \(Int(scaledValue))"
+        sendText(text: "\(Int(scaledValue))")
     }
+    
+    private func clamp(_ value: Float, _ min: Float, _ max: Float) -> Float {
+        return Swift.min(Swift.max(value, min), max)
+    }
+
+    private func scale(_ value: Float, _ inputMin: Float, _ inputMax: Float, _ outputMin: Float, _ outputMax: Float) -> Float {
+        return ((value - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin
+    }
+
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
