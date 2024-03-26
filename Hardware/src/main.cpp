@@ -1,7 +1,10 @@
 #include <Arduino.h>
+#include <ESP32Servo.h>
 #include "bletest.h"
 
 BLECharacteristic *characteristicMessage;
+Servo myservo;
+int pos = 0;
 
 class MyServerCallbacks : public BLEServerCallbacks
 {
@@ -22,6 +25,12 @@ class MessageCallbacks : public BLECharacteristicCallbacks
     {
         std::string data = characteristic->getValue();
         Serial.println(data.c_str());
+
+        int servoValue = atoi(data.c_str());
+
+        servoValue = constrain(servoValue, 0, 180);
+
+        myservo.write(servoValue);
     }
 
     void onRead(BLECharacteristic *characteristic)
@@ -33,6 +42,8 @@ class MessageCallbacks : public BLECharacteristicCallbacks
 void setup()
 {
     Serial.begin(115200);
+    myservo.attach(18);
+    myservo.write(90);
 
     // Setup BLE Server
     BLEDevice::init(DEVICE_NAME);
