@@ -1,8 +1,12 @@
 #include <Arduino.h>
 #include "bletest.h"
 
+// NOTES:
+
 BLECharacteristic *characteristicMessage;
-int pos = 500;
+float MM = 40.95;
+int MIDPOINT = 3000;
+int pos = MIDPOINT; // 0-4095
 
 // hbridge controllers:
 int enablePin = 27;
@@ -12,11 +16,10 @@ int in2Pin = 12;
 // potentiometer
 int potPin = 35;
 
-int pwmOutput = 255;
+int pwmOutput = 65535;
 
 int MAX_POSITION = 4095;
 int MIN_POSITION = 0;
-int PADDING = 150;
 
 class MyServerCallbacks : public BLEServerCallbacks
 {
@@ -51,7 +54,6 @@ class MessageCallbacks : public BLECharacteristicCallbacks
     }
 };
 
-// ACTUATOR CONTROL (todo - add PID control and make this a class)
 void setExtend()
 {
     digitalWrite(in1Pin, LOW);
@@ -80,6 +82,11 @@ void moveToPosition(int targetPosition)
 { // 0-4095
 
     int currentPosition = analogRead(potPin);
+
+    // Serial.print("Target: ");
+    // Serial.print(targetPosition);
+    // Serial.print(", Actual: ");
+    // Serial.println(currentPosition);
     if (targetPosition > MAX_POSITION)
     {
         targetPosition = MAX_POSITION;
@@ -89,31 +96,27 @@ void moveToPosition(int targetPosition)
         targetPosition = MIN_POSITION;
     }
 
-    if (targetPosition - PADDING > currentPosition)
+    if (targetPosition > currentPosition)
     {
         setExtend();
-        Serial.println("EXTEND");
     }
-    else if (targetPosition + PADDING < currentPosition)
+    else if (targetPosition < currentPosition)
     {
         setRetract();
-        Serial.println("RETRACT");
     }
     else
     {
         setStop();
-        Serial.println("STOP");
     }
 }
 
 void setup()
 {
     Serial.begin(115200);
-
-    // Setup actuator pins
     pinMode(enablePin, OUTPUT);
     pinMode(in1Pin, OUTPUT);
     pinMode(in2Pin, OUTPUT);
+
     pinMode(potPin, INPUT);
 
     // Setup BLE Server
@@ -146,19 +149,14 @@ void setup()
     adv.setCompleteServices(BLEUUID(SERVICE_UUID));
     advertisement->setAdvertisementData(adv);
     advertisement->start();
+    analogWrite(enablePin, pwmOutput);
 
     Serial.println("Ready");
+
 }
 
 void loop()
 {
     int potValue = analogRead(potPin);
-
-    Serial.print("Pot: ");
-    Serial.print(potValue);
-
-    Serial.print(", Pos: ");
-    Serial.println(pos);
-
     moveToPosition(pos);
 }
