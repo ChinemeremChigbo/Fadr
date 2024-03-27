@@ -288,13 +288,33 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let pixelInfo: Int = ((Int(cgImage.width) * middleY) + middleX) * 4 // RGBA
         
         let red = CGFloat(data[pixelInfo]) / 255.0
-        let height = String(format: "%.3f", Double(round(1000 * (1 - red)) / 1000))
+
+        
+        let inputValue = Double(round(1000 * (1 - red)) / 1000)
+        let inputMin = 0.5
+        let inputMax = 0.85
+        let outputMin: Double = 700
+        let outputMax: Double = 900
+        
+        let clampedValue = clamp(inputValue, inputMin, inputMax)
+        let scaledValue = scale(clampedValue, inputMin, inputMax, outputMin, outputMax)
+        
+        let height = String(format: "%.3f", scaledValue)
         
         DispatchQueue.main.async {
             self.colorLabel.text = "Height: \(height)"
         }
         sendText(text:height)
     }
+    
+    private func clamp(_ value: Double, _ min: Double, _ max: Double) -> Double {
+        return Swift.min(Swift.max(value, min), max)
+    }
+
+    private func scale(_ value: Double, _ inputMin: Double, _ inputMax: Double, _ outputMin: Double, _ outputMax: Double) -> Double {
+        return ((value - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin
+    }
+
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
