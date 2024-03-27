@@ -2,7 +2,7 @@
 #include "bletest.h"
 
 BLECharacteristic *characteristicMessage;
-int pos = 0;
+int pos = 500;
 
 // hbridge controllers:
 int enablePin = 27;
@@ -92,14 +92,17 @@ void moveToPosition(int targetPosition)
     if (targetPosition - PADDING > currentPosition)
     {
         setExtend();
+        Serial.println("EXTEND");
     }
     else if (targetPosition + PADDING < currentPosition)
     {
         setRetract();
+        Serial.println("RETRACT");
     }
     else
     {
         setStop();
+        Serial.println("STOP");
     }
 }
 
@@ -152,9 +155,9 @@ void loop()
     int potValue = analogRead(potPin);
 
     Serial.print("Pot: ");
-    Serial.println(potValue);
+    Serial.print(potValue);
 
-    Serial.print("Pos: ");
+    Serial.print(", Pos: ");
     Serial.println(pos);
 
     moveToPosition(pos);
