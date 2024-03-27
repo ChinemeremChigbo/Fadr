@@ -167,7 +167,7 @@ extension CustomizeViewController: CBPeripheralDelegate {
         let inputMin = sender.minimumValue
         let inputMax = sender.maximumValue
         let outputMin: Float = 0
-        let outputMax: Float = 180
+        let outputMax: Float = 4095
         
         let clampedValue = clamp(inputValue, inputMin, inputMax)
         let scaledValue = scale(clampedValue, inputMin, inputMax, outputMin, outputMax)

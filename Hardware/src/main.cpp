@@ -40,9 +40,9 @@ class MessageCallbacks : public BLECharacteristicCallbacks
 
         int servoValue = atoi(data.c_str());
 
-        servoValue = constrain(servoValue, 0, 180);
+        servoValue = constrain(servoValue, MIN_POSITION, MAX_POSITION);
 
-        myservo.write(servoValue);
+        pos = servoValue;
     }
 
     void onRead(BLECharacteristic *characteristic)
@@ -149,5 +149,13 @@ void setup()
 
 void loop()
 {
-    delay(1000);
+    int potValue = analogRead(potPin);
+
+    Serial.print("Pot: ");
+    Serial.println(potValue);
+
+    Serial.print("Pos: ");
+    Serial.println(pos);
+
+    moveToPosition(pos);
 }
