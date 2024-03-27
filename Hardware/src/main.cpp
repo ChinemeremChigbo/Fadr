@@ -1,10 +1,22 @@
 #include <Arduino.h>
-#include <ESP32Servo.h>
 #include "bletest.h"
 
 BLECharacteristic *characteristicMessage;
-Servo myservo;
 int pos = 0;
+
+// hbridge controllers:
+int enablePin = 27;
+int in1Pin = 14;
+int in2Pin = 12;
+
+// potentiometer
+int potPin = 35;
+
+int pwmOutput = 255;
+
+int MAX_POSITION = 4095;
+int MIN_POSITION = 0;
+int PADDING = 150;
 
 class MyServerCallbacks : public BLEServerCallbacks
 {
@@ -39,11 +51,67 @@ class MessageCallbacks : public BLECharacteristicCallbacks
     }
 };
 
+// ACTUATOR CONTROL (todo - add PID control and make this a class)
+void setExtend()
+{
+    digitalWrite(in1Pin, LOW);
+    digitalWrite(in2Pin, HIGH);
+}
+
+void setRetract()
+{
+    digitalWrite(in1Pin, HIGH);
+    digitalWrite(in2Pin, LOW);
+}
+
+void setStop()
+{
+    digitalWrite(in1Pin, LOW);
+    digitalWrite(in2Pin, LOW);
+}
+
+void setSpeed(int speed) // 0-255
+{
+    pwmOutput = speed;
+    analogWrite(enablePin, pwmOutput);
+}
+
+void moveToPosition(int targetPosition)
+{ // 0-4095
+
+    int currentPosition = analogRead(potPin);
+    if (targetPosition > MAX_POSITION)
+    {
+        targetPosition = MAX_POSITION;
+    }
+    if (targetPosition < MIN_POSITION)
+    {
+        targetPosition = MIN_POSITION;
+    }
+
+    if (targetPosition - PADDING > currentPosition)
+    {
+        setExtend();
+    }
+    else if (targetPosition + PADDING < currentPosition)
+    {
+        setRetract();
+    }
+    else
+    {
+        setStop();
+    }
+}
+
 void setup()
 {
     Serial.begin(115200);
-    myservo.attach(18);
-    myservo.write(90);
+
+    // Setup actuator pins
+    pinMode(enablePin, OUTPUT);
+    pinMode(in1Pin, OUTPUT);
+    pinMode(in2Pin, OUTPUT);
+    pinMode(potPin, INPUT);
 
     // Setup BLE Server
     BLEDevice::init(DEVICE_NAME);
