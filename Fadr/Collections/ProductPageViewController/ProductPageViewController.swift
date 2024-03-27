@@ -23,7 +23,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     var hairHeightNode: SCNNode!
     var lastUpdateTimestamp: TimeInterval = 0
-    let updateInterval: TimeInterval = 0.1 // Adjust the update interval as needed
+    let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
     
     lazy var colorLabel: UILabel = {
@@ -71,13 +71,18 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.discoverServices([serviceUUID])
         print("Connected to " +  peripheral.name!)
-        connectClippersButton.setTitle("Connected", for: .normal)
-        
+        connectClippersButton.setTitle("Disconnect Clippers", for: .normal)
+        connectClippersButton.removeTarget(self, action: #selector(connectClippers), for: .touchUpInside)
+        connectClippersButton.addTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
+        connectClippersButton.isEnabled = true
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from " +  peripheral.name!)
-        
+        connectClippersButton.setTitle("Connect Clippers", for: .normal)
+        connectClippersButton.removeTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
+        connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
+        connectClippersButton.isEnabled = true
         myPeripheral = nil
         myCharacteristic = nil
         
@@ -85,6 +90,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print(error!)
+        connectClippersButton.isEnabled = true
     }
     
     func drawCircle() {
@@ -224,11 +230,25 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         new_origin_set = false
     }
     
+    @objc func disconnectFromClippers() {
+        if let peripheral = myPeripheral {
+            bluetooth.cancelPeripheralConnection(peripheral)
+            print("Disconnecting from " +  peripheral.name!)
+            connectClippersButton.setTitle("Disconnecting...", for: .normal)
+            connectClippersButton.isEnabled = false // Disable the button while disconnecting
+            connectClippersButton.setTitleColor(.systemBlue, for: .normal)
+        } else {
+            print("No peripheral connected.")
+        }
+    }
+    
     @objc func connectClippers() {
         print("Scanning")
         bluetooth.stopScan()
         connectClippersButton.setTitle("Scanning...", for: .normal)
         bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
+        connectClippersButton.isEnabled = false // Disable the button while disconnecting
+        connectClippersButton.setTitleColor(.systemBlue, for: .normal)
     }
 }
 
