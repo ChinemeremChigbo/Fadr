@@ -3,9 +3,10 @@
 
 // NOTES:
 
+BLEServer *server;
 BLECharacteristic *characteristicMessage;
 float MM = 40.95;
-int MIDPOINT = 3000;
+int MIDPOINT = 700;
 int pos = MIDPOINT; // 0-4095
 
 // hbridge controllers:
@@ -30,7 +31,8 @@ class MyServerCallbacks : public BLEServerCallbacks
 
     void onDisconnect(BLEServer *server)
     {
-        Serial.println("Disconnected");
+        Serial.println("Device disconnected, restarting advertising");
+        server->startAdvertising();
     }
 };
 
@@ -121,7 +123,7 @@ void setup()
 
     // Setup BLE Server
     BLEDevice::init(DEVICE_NAME);
-    BLEServer *server = BLEDevice::createServer();
+    server = BLEDevice::createServer();
     server->setCallbacks(new MyServerCallbacks());
 
     // Register message service that can receive messages and reply with a static message.
