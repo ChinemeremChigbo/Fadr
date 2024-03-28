@@ -261,39 +261,13 @@ extension ProductPageViewController: CBPeripheralDelegate {
         self.scnView.showsStatistics = true
         view.addSubview(self.scnView)
         
-        let scene = SCNScene()
-        self.scnView.scene = scene
-        
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.camera?.zNear = 0.1
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 0.5)
-        scene.rootNode.addChildNode(cameraNode)
-        
-        let ambientLight = SCNLight()
-        ambientLight.type = .ambient
-        ambientLight.color = UIColor.darkGray
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = ambientLight
-        scene.rootNode.addChildNode(ambientLightNode)
-        
-        
-        if let url = Bundle.main.url(forResource: "hair_height", withExtension: "scn") {
-            // Load the scene asynchronously
-            DispatchQueue.global(qos: .background).async { [self] in // Capture self
-                if let loadedScene = try? SCNScene(url: url, options: nil) {
-                    DispatchQueue.main.async {
-                        for node in loadedScene.rootNode.childNodes as [SCNNode] {
-                            scene.rootNode.addChildNode(node)
-                            self.hairHeightNode = node // Accessing property with self
-                        }
-                    }
-                } else {
-                    print("Failed to create SCNScene from the .scn file.")
-                }
-            }
+        // Load scene from file
+        if let scene = SCNScene(named: "hair_height.scn") {
+            self.scnView.scene = scene
+            hairHeightNode = scene.rootNode.childNode(withName: "Head", recursively: true)
+
         } else {
-            print("Failed to load .scn file.")
+            print("Failed to load scene from file")
         }
         
     }

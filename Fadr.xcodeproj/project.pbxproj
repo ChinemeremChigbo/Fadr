@@ -11,7 +11,6 @@
 		1027CA7F2BACF6F8001CCADC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA782BACF6F8001CCADC /* AppDelegate.swift */; };
 		1027CA822BACF6F8001CCADC /* ObjectCollectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA7B2BACF6F8001CCADC /* ObjectCollectionHelper.swift */; };
 		1027CA832BACF6F8001CCADC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */; };
-		1027CA872BACF700001CCADC /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA842BACF700001CCADC /* hair_height.scn */; };
 		1027CA882BACF700001CCADC /* Hair.png in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA852BACF700001CCADC /* Hair.png */; };
 		1027CA8A2BACF8E3001CCADC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1027CA892BACF8E3001CCADC /* Main.storyboard */; };
 		1027CA962BACF9D2001CCADC /* CollectionProductInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */; };
@@ -46,6 +45,7 @@
 		10613EEE2BB0A1E8008CA5CC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10613EEB2BB0A1E8008CA5CC /* StringExtensions.swift */; };
 		10613EEF2BB0A1E8008CA5CC /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10613EEC2BB0A1E8008CA5CC /* ViewExtensions.swift */; };
 		10613EF02BB0A1E8008CA5CC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10613EED2BB0A1E8008CA5CC /* ColorExtensions.swift */; };
+		107270712BB5294100BEC502 /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 107270702BB5294100BEC502 /* hair_height.scn */; };
 		108FF0B22BACF44B00AE6A39 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0B12BACF44B00AE6A39 /* products.json */; };
 		8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A85DC251A37600077CDAC /* InformationViewController.swift */; };
 		8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E1251A37610077CDAC /* Assets.xcassets */; };
@@ -57,7 +57,6 @@
 		1027CA782BACF6F8001CCADC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1027CA7B2BACF6F8001CCADC /* ObjectCollectionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCollectionHelper.swift; sourceTree = "<group>"; };
 		1027CA7C2BACF6F8001CCADC /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1027CA842BACF700001CCADC /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		1027CA852BACF700001CCADC /* Hair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hair.png; sourceTree = "<group>"; };
 		1027CA892BACF8E3001CCADC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1027CA912BACF9D2001CCADC /* CollectionProductInfoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionProductInfoHelper.swift; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		10613EEB2BB0A1E8008CA5CC /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		10613EEC2BB0A1E8008CA5CC /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		10613EED2BB0A1E8008CA5CC /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		107270702BB5294100BEC502 /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		108FF0B12BACF44B00AE6A39 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
 		8E4A85D5251A37600077CDAC /* Fadr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fadr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4A85DC251A37600077CDAC /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		1027CA862BACF700001CCADC /* 3D */ = {
 			isa = PBXGroup;
 			children = (
-				1027CA842BACF700001CCADC /* hair_height.scn */,
+				107270702BB5294100BEC502 /* hair_height.scn */,
 				1027CA852BACF700001CCADC /* Hair.png */,
 			);
 			path = 3D;
@@ -288,8 +288,7 @@
 				10613EEB2BB0A1E8008CA5CC /* StringExtensions.swift */,
 				10613EEC2BB0A1E8008CA5CC /* ViewExtensions.swift */,
 			);
-			name = Extensions;
-			path = "Extensions";
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		8E4A85CC251A37600077CDAC = {
@@ -396,7 +395,6 @@
 				1027CAE62BAD35E4001CCADC /* low_top_fade.jpg in Resources */,
 				1027CAE42BAD35E4001CCADC /* dread_fade.jpg in Resources */,
 				108FF0B22BACF44B00AE6A39 /* products.json in Resources */,
-				1027CA872BACF700001CCADC /* hair_height.scn in Resources */,
 				1027CAB82BACFADB001CCADC /* ProductCatalogCell.xib in Resources */,
 				1027CA882BACF700001CCADC /* Hair.png in Resources */,
 				1027CAE12BAD35E4001CCADC /* retro_flat_top.jpg in Resources */,
@@ -406,6 +404,7 @@
 				1027CAD82BAD31AA001CCADC /* high_top_fade.jpg in Resources */,
 				1027CAE82BAD3A00001CCADC /* beard_fade.jpg in Resources */,
 				8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */,
+				107270712BB5294100BEC502 /* hair_height.scn in Resources */,
 				1027CABD2BACFADB001CCADC /* ProductCollectionCell.xib in Resources */,
 				1027CAE32BAD35E4001CCADC /* taper_afro.jpg in Resources */,
 			);
