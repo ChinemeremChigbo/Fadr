@@ -278,14 +278,19 @@ extension ProductPageViewController: CBPeripheralDelegate {
         scene.rootNode.addChildNode(ambientLightNode)
         
         
-        if let url = Bundle.main.url(forResource: productObject?.modelFileName, withExtension: nil) {
-            if let loadedScene = try? SCNScene(url: url, options: nil) {
-                for node in loadedScene.rootNode.childNodes as [SCNNode] {
-                    scene.rootNode.addChildNode(node)
-                    hairHeightNode = node
+        if let url = Bundle.main.url(forResource: "hair_height", withExtension: "scn") {
+            // Load the scene asynchronously
+            DispatchQueue.global(qos: .background).async { [self] in // Capture self
+                if let loadedScene = try? SCNScene(url: url, options: nil) {
+                    DispatchQueue.main.async {
+                        for node in loadedScene.rootNode.childNodes as [SCNNode] {
+                            scene.rootNode.addChildNode(node)
+                            self.hairHeightNode = node // Accessing property with self
+                        }
+                    }
+                } else {
+                    print("Failed to create SCNScene from the .scn file.")
                 }
-            } else {
-                print("Failed to create SCNScene from the .scn file.")
             }
         } else {
             print("Failed to load .scn file.")
