@@ -533,14 +533,17 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let clampedValue = clamp(inputValue, modelMin, modelMax)
         let scaledValue = scale(clampedValue, modelMin, modelMax, Double(outputMin), Double(outputMax))
         
-        let height = String(format: "%.3f", scaledValue)
+        var height = String(format: "%.3f", scaledValue)
         
         DispatchQueue.main.async {
             self.heightLabel.text = "Height: \(height)"
         }
-        if !isModalOpen {
-            sendText(text: height)
+        if isModalOpen {
+            height = String(format: "%.3f", self.slider.value)
         }
+        
+        sendText(text: height)
+        print(height)
     }
     
     private func clamp(_ value: Double, _ min: Double, _ max: Double) -> Double {
