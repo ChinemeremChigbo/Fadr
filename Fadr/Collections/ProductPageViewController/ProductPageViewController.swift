@@ -6,9 +6,11 @@ import CoreMotion
 class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CBCentralManagerDelegate {
     var productObject: Product?
 
-    var origin_quaternion = simd_quatf(ix: 0.7071068, iy: 0, iz: 0, r: 0.7071068)
-    var new_origin_quaternion = simd_quatf(ix: 0.7071068, iy: 0, iz: 0, r: 0.7071068)
-    var new_origin_set = false
+    var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+    var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
+    let default_quaternion = simd_quatf(ix:0, iy:0, iz:0, r:1)
+
+    var reset_origin_quaternion_set = false
     var first_quaternion = true
     let headphone = CMHeadphoneMotionManager()
     var headphoneData: CMDeviceMotion?
@@ -25,6 +27,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var lastUpdateTimestamp: TimeInterval = 0
     let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
+    
     
     lazy var colorLabel: UILabel = {
         let label = UILabel()
@@ -198,36 +201,40 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     }
     
     func NodeRotate() {
-        guard let headphoneData = self.headphoneData, let phoneData = self.phoneData else {
-            return
+        
+
+
+
+        let headphone_quaternion = self.headphoneData != nil ?
+            simd_quatf(ix: Float(headphoneData!.attitude.quaternion.x),
+                       iy: -Float(headphoneData!.attitude.quaternion.z),
+                       iz: -Float(headphoneData!.attitude.quaternion.y),
+                       r: Float(headphoneData!.attitude.quaternion.w)) :
+        default_quaternion
+        
+
+        let phone_quaternion = self.phoneData != nil ?
+            simd_quatf(ix: Float(phoneData!.attitude.quaternion.x),
+                       iy: -Float(phoneData!.attitude.quaternion.z),
+                       iz: -Float(phoneData!.attitude.quaternion.y),
+                       r: Float(phoneData!.attitude.quaternion.w)) :
+        default_quaternion
+                
+
+        let relative_quaternion = phone_quaternion * headphone_quaternion.inverse
+        
+        if !reset_origin_quaternion_set {
+            reset_origin_quaternion = relative_quaternion
+            reset_origin_quaternion_set = true
         }
+        let rotation_quaternion = reset_origin_quaternion * relative_quaternion.inverse
         
-        let headphone_quaternion = simd_quatd(ix: headphoneData.attitude.quaternion.x,
-                                              iy: headphoneData.attitude.quaternion.z,
-                                              iz: headphoneData.attitude.quaternion.y,
-                                              r: -headphoneData.attitude.quaternion.w)
-        
-        let phone_quaternion = simd_quatd(ix: phoneData.attitude.quaternion.x,
-                                          iy: phoneData.attitude.quaternion.z,
-                                          iz: phoneData.attitude.quaternion.y,
-                                          r: -phoneData.attitude.quaternion.w)
-        
-        let relative_quaternion = headphone_quaternion.inverse * phone_quaternion;
-        let relative_quaternion_float = simd_quatf(ix: Float(relative_quaternion.vector.x),
-                                                   iy: Float(relative_quaternion.vector.y),
-                                                   iz: Float(relative_quaternion.vector.z),
-                                                   r: Float(relative_quaternion.vector.w))
-        if !new_origin_set {
-            new_origin_quaternion = relative_quaternion_float
-            new_origin_set = true
-        }
-        let rotation = new_origin_quaternion.inverse * relative_quaternion_float
-        
-        hairHeightNode?.simdOrientation =  origin_quaternion * rotation.inverse
-        
+        hairHeightNode.simdOrientation = starting_origin_quaternion * rotation_quaternion.inverse
+
+            
     }
     @objc func resetOrientation() {
-        new_origin_set = false
+        reset_origin_quaternion_set = false
     }
     
     @objc func disconnectFromClippers() {
