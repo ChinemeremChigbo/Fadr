@@ -82,7 +82,15 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         bluetooth.stopScan()
         connectClippersButton.setTitle("Scanning...", for: .normal)
         bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
-        connectClippersButton.isEnabled = false // Disable the button while disconnecting
+        connectClippersButton.addTarget(self, action: #selector(stopScanning), for: .touchUpInside)
+        connectClippersButton.setTitleColor(.systemBlue, for: .normal)
+    }
+    
+    @objc func stopScanning() {
+        print("Stopping Scanning")
+        bluetooth.stopScan()
+        connectClippersButton.setTitle("Connect", for: .normal)
+        connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         connectClippersButton.setTitleColor(.systemBlue, for: .normal)
     }
     
