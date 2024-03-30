@@ -14,7 +14,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var alertController: UIAlertController?
     var minLabel: UILabel!
     var maxLabel: UILabel!
-
+    
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -37,7 +37,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var lastUpdateTimestamp: TimeInterval = 0
     let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
-        
+    
     var outputMin: Float = 0
     var outputMax: Float = 180
     
@@ -106,10 +106,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     }()
     
     
-
+    
     @objc func showInformationModal() {
         isModalOpen = true
-
+        
         // Create UIAlertController
         alertController = UIAlertController(title: "Information", message: "\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
         // Add text fields for minimum and maximum values
@@ -191,7 +191,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             }
             
             isModalOpen = false
-
+            
             self.outputMin = minValue
             self.outputMax = maxValue
             self.ticksPerMm = ticksPerMmValue
@@ -208,7 +208,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         alertController?.addAction(okAction)
         alertController?.addAction(cancelAction)
-
+        
         // Set up constraints
         controlTypeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         self.slider.translatesAutoresizingMaskIntoConstraints = false
@@ -216,8 +216,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         maxLabel.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         zeroButton.translatesAutoresizingMaskIntoConstraints = false
-
-
+        
+        
         NSLayoutConstraint.activate([
             controlTypeSegmentedControl.topAnchor.constraint(equalTo: alertController!.view.topAnchor, constant: 80),
             controlTypeSegmentedControl.topAnchor.constraint(equalTo: alertController!.view.topAnchor, constant: 80),
@@ -234,7 +234,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             zeroButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
             zeroButton.leadingAnchor.constraint(equalTo: alertController!.view.leadingAnchor, constant: 20)
         ])
-
+        
         // Present alert controller
         present(alertController!, animated: true, completion: nil)
     }
@@ -284,7 +284,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.maxLabel.text = maxText
         
         isModalOpen = false
-
+        
         self.outputMin = minValue
         self.outputMax = maxValue
         self.ticksPerMm = ticksPerMmValue
@@ -293,7 +293,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider.maximumValue = maxValue
         self.slider.value = (minValue + maxValue) / 2
     }
-
+    
     @objc func zeroButtonTapped() {
         // Handle Zero button tap
         // Get the current value of the slider
@@ -302,7 +302,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         // Convert the slider value to a string and assign it to the minTextField
         alertController?.textFields?.first?.text = "\(sliderValue)"
     }
-
+    
     
     func sendText(text: String) {
         if (myPeripheral != nil && myCharacteristic != nil) {
@@ -388,7 +388,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         bluetooth.delegate = self
         
         SceneSetUp()
-    
+        
         
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 2
@@ -424,7 +424,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         NSLayoutConstraint.activate([
             resetOrientationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             resetOrientationButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-
+            
         ])
         
         view.addSubview(connectClippersButton)
@@ -487,7 +487,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         hairHeightNode.simdOrientation = starting_origin_quaternion * rotation_quaternion.inverse
         
     }
- 
+    
 }
 
 extension ProductPageViewController: CBPeripheralDelegate {
@@ -529,7 +529,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let inputValue = Double(round(1000 * (1 - red)) / 1000)
         let modelMin = 0.5
         let modelMax = 0.85
-
+        
         let clampedValue = clamp(inputValue, modelMin, modelMax)
         let scaledValue = scale(clampedValue, modelMin, modelMax, Double(outputMin), Double(outputMax))
         
@@ -571,7 +571,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
 
 class CustomSlider: UISlider {
     private let touchAreaEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
-
+    
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let increasedBounds = bounds.inset(by: touchAreaEdgeInsets)
         return increasedBounds.contains(point) ? self : nil
