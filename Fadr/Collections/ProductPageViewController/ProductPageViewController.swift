@@ -37,15 +37,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var lastUpdateTimestamp: TimeInterval = 0
     let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
+        
+    var outputMin: Float = 0
+    var outputMax: Float = 180
     
-    var sliderMin: Float = 0
-    var sliderMax: Float = 4095
-    
-//    var servoIncrement: Float = 18
-//    var servoIncrement: Float = 18
-    
-    var outputMin: Float = 700
-    var outputMax: Float = 900
+    var ticksPerMm: Float = 18
     
     
     lazy var heightLabel: UILabel = {
@@ -115,7 +111,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         isModalOpen = true
 
         // Create UIAlertController
-        alertController = UIAlertController(title: "Information", message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        alertController = UIAlertController(title: "Information", message: "\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
         // Add text fields for minimum and maximum values
         alertController?.addTextField { textField in
             textField.placeholder = "Minimum Value"
@@ -128,6 +124,14 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             textField.text = "\(self.outputMax)"
             textField.keyboardType = .decimalPad
         }
+        
+        // Add a text field for "Ticks per mm"
+        alertController?.addTextField { textField in
+            textField.placeholder = "Ticks per mm"
+            textField.text = "\(self.ticksPerMm)"
+            textField.keyboardType = .decimalPad
+        }
+        
         
         // Create segmented control for choosing control type
         let controlTypeSegmentedControl = UISegmentedControl(items: ["Servo", "Linear Actuator"])
@@ -169,10 +173,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         // Add OK button
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            guard let minText = self.alertController?.textFields?.first?.text,
-                  let maxText = self.alertController?.textFields?.last?.text,
+            guard let minText = self.alertController?.textFields?[0].text,
+                  let maxText = self.alertController?.textFields?[1].text,
+                  let ticksPerMmText = self.alertController?.textFields?[2].text,
                   let minValue = Float(minText),
-                  let maxValue = Float(maxText) else {
+                  let maxValue = Float(maxText),
+                  let ticksPerMmValue = Float(ticksPerMmText) else {
                 return
             }
             
@@ -188,6 +194,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
 
             self.outputMin = minValue
             self.outputMax = maxValue
+            self.ticksPerMm = ticksPerMmValue
             
             self.slider.minimumValue = minValue
             self.slider.maximumValue = maxValue
@@ -233,31 +240,37 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     }
     
     @objc func controlTypeChanged(_ sender: UISegmentedControl) {
-         let selectedIndex = sender.selectedSegmentIndex
-         switch selectedIndex {
-         case 0: // Servo
-             // Set text field values to 0 and 180
-             guard let minTextField = alertController?.textFields?.first, let maxTextField = alertController?.textFields?.last else { return }
-             minTextField.text = "0"
-             maxTextField.text = "180"
-         case 1: // Linear Actuator
-             // Set text field values to 0 and 4095
-             guard let minTextField = alertController?.textFields?.first, let maxTextField = alertController?.textFields?.last else { return }
-             minTextField.text = "0"
-             maxTextField.text = "4095"
-         default:
-             break
-         }
+        let selectedIndex = sender.selectedSegmentIndex
+        guard let minTextField = alertController?.textFields?[0] else { return }
+        guard let maxTextField = alertController?.textFields?[1] else { return }
+        guard let ticksPerMmTextField = alertController?.textFields?[2] else { return }
+        switch selectedIndex {
+        case 0: // Servo
+            // Set text field values to 0 and 180
+            minTextField.text = "0"
+            maxTextField.text = "180"
+            ticksPerMmTextField.text = "18"
+        case 1: // Linear Actuator
+            // Set text field values to 0 and 4095
+            minTextField.text = "0"
+            maxTextField.text = "4095"
+            ticksPerMmTextField.text = "18"
+        default:
+            break
+        }
     }
     
     @objc func saveButtonTapped() {
         // Handle Save button tap
-        guard let minText = self.alertController?.textFields?.first?.text,
-              let maxText = self.alertController?.textFields?.last?.text,
+        guard let minText = self.alertController?.textFields?[0].text,
+              let maxText = self.alertController?.textFields?[1].text,
+              let ticksPerMmText = self.alertController?.textFields?[2].text,
               let minValue = Float(minText),
-              let maxValue = Float(maxText) else {
+              let maxValue = Float(maxText),
+              let ticksPerMmValue = Float(ticksPerMmText) else {
             return
         }
+        
         
         guard minValue <= maxValue else {
             // Show an error alert
@@ -269,12 +282,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         // Update the min and max labels with the entered values
         self.minLabel.text = minText
         self.maxLabel.text = maxText
-
         
         isModalOpen = false
 
         self.outputMin = minValue
         self.outputMax = maxValue
+        self.ticksPerMm = ticksPerMmValue
         
         self.slider.minimumValue = minValue
         self.slider.maximumValue = maxValue
