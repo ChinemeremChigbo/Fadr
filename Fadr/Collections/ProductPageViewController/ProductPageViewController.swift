@@ -4,6 +4,7 @@ import SceneKit
 import CoreMotion
 
 class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CBCentralManagerDelegate {
+    
     var productObject: Product?
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -29,17 +30,34 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var scnView = SCNView()
     
     
-    lazy var colorLabel: UILabel = {
+    
+    lazy var heightLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
     
-    let resetOrientationButton = UIButton(type: .system)
-    let connectClippersButton = UIButton(type: .system)
+    lazy var resetOrientationButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Reset", for: .normal)
+        button.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        return button
+    }()
+    
+    lazy var connectClippersButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Connect", for: .normal)
+        button.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        return button
+    }()
     
     
     func sendText(text: String) {
@@ -71,10 +89,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         }
     }
     
+    
+    
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.discoverServices([serviceUUID])
         print("Connected to " +  peripheral.name!)
-        connectClippersButton.setTitle("Disconnect Clippers", for: .normal)
+        connectClippersButton.setTitle("Disconnect", for: .normal)
         connectClippersButton.removeTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         connectClippersButton.addTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
         connectClippersButton.isEnabled = true
@@ -82,7 +102,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from " +  peripheral.name!)
-        connectClippersButton.setTitle("Connect Clippers", for: .normal)
+        connectClippersButton.setTitle("Connect", for: .normal)
         connectClippersButton.removeTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
         connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         connectClippersButton.isEnabled = true
@@ -109,8 +129,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         // Create a CAShapeLayer to draw the circle
         let circleLayer = CAShapeLayer()
         circleLayer.path = circlePath.cgPath
-        circleLayer.strokeColor = UIColor.blue.cgColor // Set the stroke color to blue
-        circleLayer.fillColor = UIColor.clear.cgColor // Set fill color to clear (transparent)
+        circleLayer.strokeColor = UIColor.systemBlue.cgColor
+        circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineWidth = 2.0 // Set the line width
         
         // Add the circle layer to the view's layer
@@ -122,7 +142,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.view.backgroundColor = .systemBackground
         headphone.delegate = self
         bluetooth.delegate = self
-        
         
         SceneSetUp()
         
@@ -153,27 +172,30 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self?.processMotionDataIfNeeded()
         }
         
-        resetOrientationButton.setTitle("Reset Orientation", for: .normal)
-        resetOrientationButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-        view.addSubview(resetOrientationButton)
-        resetOrientationButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        connectClippersButton.setTitle("Connect Clippers", for: .normal)
-        connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
-        view.addSubview(connectClippersButton)
-        connectClippersButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(colorLabel)
+        view.addSubview(heightLabel)
         
         NSLayoutConstraint.activate([
-            colorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            colorLabel.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            
-            resetOrientationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            resetOrientationButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            
-            connectClippersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            connectClippersButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 150)
+            heightLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            heightLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+        ])
+        
+        
+        view.addSubview(resetOrientationButton)
+        
+        // Set constraints for the reset button
+        NSLayoutConstraint.activate([
+            resetOrientationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            resetOrientationButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+
+        ])
+        
+        // Add the connect clippers button to the view
+        view.addSubview(connectClippersButton)
+        
+        // Set constraints for the connect clippers button
+        NSLayoutConstraint.activate([
+            connectClippersButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            connectClippersButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
         ])
         
     }
@@ -261,7 +283,6 @@ extension ProductPageViewController: CBPeripheralDelegate {
         self.scnView = SCNView(frame: self.view.frame)
         self.scnView.backgroundColor = UIColor.systemBackground
         self.scnView.allowsCameraControl = false
-        self.scnView.showsStatistics = true
         view.addSubview(self.scnView)
         
         // Load scene from file
@@ -304,7 +325,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let height = String(format: "%.3f", scaledValue)
         
         DispatchQueue.main.async {
-            self.colorLabel.text = "Height: \(height)"
+            self.heightLabel.text = "Height: \(height)"
         }
         sendText(text:height)
     }
