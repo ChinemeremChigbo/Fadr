@@ -3,9 +3,16 @@ import CoreBluetooth
 import SceneKit
 import CoreMotion
 
+
+var isModalOpen = false
+
 class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CBCentralManagerDelegate {
     
     var productObject: Product?
+    
+    var slider: CustomSlider!
+    var alertController: UIAlertController?
+
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -29,10 +36,19 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
     
+    var sliderMin: Float = 0
+    var sliderMax: Float = 4095
+    
+//    var servoIncrement: Float = 18
+//    var servoIncrement: Float = 18
+    
+    var outputMin: Float = 700
+    var outputMax: Float = 900
     
     
     lazy var heightLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -49,6 +65,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         return button
     }()
     
+    @objc func resetOrientation() {
+        reset_origin_quaternion_set = false
+    }
+    
     lazy var connectClippersButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Connect", for: .normal)
@@ -59,6 +79,157 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         return button
     }()
     
+    @objc func connectClippers() {
+        print("Scanning")
+        bluetooth.stopScan()
+        connectClippersButton.setTitle("Scanning...", for: .normal)
+        bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
+        connectClippersButton.isEnabled = false // Disable the button while disconnecting
+        connectClippersButton.setTitleColor(.systemBlue, for: .normal)
+    }
+    
+    @objc func disconnectClippers() {
+        if let peripheral = myPeripheral {
+            bluetooth.cancelPeripheralConnection(peripheral)
+            print("Disconnecting from " +  peripheral.name!)
+            connectClippersButton.setTitle("Disconnecting...", for: .normal)
+            connectClippersButton.isEnabled = false // Disable the button while disconnecting
+            connectClippersButton.setTitleColor(.systemBlue, for: .normal)
+        } else {
+            print("No peripheral connected.")
+        }
+    }
+    
+    lazy var informationButton: UIButton = {
+        let button = UIButton(type: .infoLight)
+        button.addTarget(self, action: #selector(showInformationModal), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    
+
+    @objc func showInformationModal() {
+        isModalOpen = true
+        
+
+        // Create UIAlertController
+        alertController = UIAlertController(title: "Information", message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        // Add text fields for minimum and maximum values
+        alertController?.addTextField { textField in
+            textField.placeholder = "Minimum Value"
+            textField.text = "\(self.outputMin)"
+            textField.keyboardType = .decimalPad
+        }
+        
+        alertController?.addTextField { textField in
+            textField.placeholder = "Maximum Value"
+            textField.text = "\(self.outputMax)"
+            textField.keyboardType = .decimalPad
+        }
+        
+        // Create segmented control for choosing control type
+        let controlTypeSegmentedControl = UISegmentedControl(items: ["Servo", "Linear Actuator"])
+        controlTypeSegmentedControl.selectedSegmentIndex = 0 // Default selection: Servo
+        alertController?.view.addSubview(controlTypeSegmentedControl)
+        
+        // Create slider
+        self.slider = CustomSlider(frame: CGRect(x: 10, y: 70, width: 250, height: 20))
+        self.slider.minimumValue = self.outputMin
+        self.slider.maximumValue = self.outputMax
+        self.slider.value = (self.outputMin + self.outputMax) / 2
+        alertController?.view.addSubview(self.slider)
+        
+        // Create labels for displaying min and max values
+        let minLabel = UILabel(frame: CGRect(x: 10, y: 150, width: 50, height: 20))
+        minLabel.text = "\(self.outputMin)"
+        minLabel.textAlignment = .center
+        alertController?.view.addSubview(minLabel)
+        
+        let maxLabel = UILabel(frame: CGRect(x: 210, y: 150, width: 50, height: 20))
+        maxLabel.text = "\(self.outputMax)"
+        maxLabel.textAlignment = .center
+        alertController?.view.addSubview(maxLabel)
+        
+        // Add target to segmented control to detect changes
+        controlTypeSegmentedControl.addTarget(self, action: #selector(controlTypeChanged(_:)), for: .valueChanged)
+        
+        // Add OK button
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            guard let minText = self.alertController?.textFields?.first?.text,
+                  let maxText = self.alertController?.textFields?.last?.text,
+                  let minValue = Float(minText),
+                  let maxValue = Float(maxText) else {
+                return
+            }
+            
+            guard minValue <= maxValue else {
+                // Show an error alert
+                let errorAlert = UIAlertController(title: "Error", message: "Minimum value cannot be larger than maximum value.", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(errorAlert, animated: true, completion: nil)
+                return
+            }
+            
+            isModalOpen = false
+
+            self.outputMin = minValue
+            self.outputMax = maxValue
+            
+            self.slider.minimumValue = minValue
+            self.slider.maximumValue = maxValue
+            self.slider.value = (minValue + maxValue) / 2
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            isModalOpen = false
+        }
+        
+        alertController?.addAction(okAction)
+        alertController?.addAction(cancelAction)
+
+        // Set up constraints
+        controlTypeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        self.slider.translatesAutoresizingMaskIntoConstraints = false
+        minLabel.translatesAutoresizingMaskIntoConstraints = false
+        maxLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            controlTypeSegmentedControl.topAnchor.constraint(equalTo: alertController!.view.topAnchor, constant: 80),
+            controlTypeSegmentedControl.centerXAnchor.constraint(equalTo: alertController!.view.centerXAnchor),
+            self.slider.topAnchor.constraint(equalTo: controlTypeSegmentedControl.bottomAnchor, constant: 20),
+            self.slider.leadingAnchor.constraint(equalTo: alertController!.view.leadingAnchor, constant: 20),
+            self.slider.trailingAnchor.constraint(equalTo: alertController!.view.trailingAnchor, constant: -20),
+            minLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
+            minLabel.leadingAnchor.constraint(equalTo: self.slider.leadingAnchor),
+            maxLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
+            maxLabel.trailingAnchor.constraint(equalTo: self.slider.trailingAnchor)
+        ])
+
+        // Present alert controller
+        present(alertController!, animated: true, completion: nil)
+    }
+    
+    @objc func controlTypeChanged(_ sender: UISegmentedControl) {
+         let selectedIndex = sender.selectedSegmentIndex
+         switch selectedIndex {
+         case 0: // Servo
+             // Set text field values to 0 and 180
+             guard let minTextField = alertController?.textFields?.first, let maxTextField = alertController?.textFields?.last else { return }
+             minTextField.text = "0"
+             maxTextField.text = "180"
+         case 1: // Linear Actuator
+             // Set text field values to 0 and 4095
+             guard let minTextField = alertController?.textFields?.first, let maxTextField = alertController?.textFields?.last else { return }
+             minTextField.text = "0"
+             maxTextField.text = "4095"
+         default:
+             break
+         }
+    }
+
+
+
     
     func sendText(text: String) {
         if (myPeripheral != nil && myCharacteristic != nil) {
@@ -96,14 +267,14 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         print("Connected to " +  peripheral.name!)
         connectClippersButton.setTitle("Disconnect", for: .normal)
         connectClippersButton.removeTarget(self, action: #selector(connectClippers), for: .touchUpInside)
-        connectClippersButton.addTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
+        connectClippersButton.addTarget(self, action: #selector(disconnectClippers), for: .touchUpInside)
         connectClippersButton.isEnabled = true
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from " +  peripheral.name!)
         connectClippersButton.setTitle("Connect", for: .normal)
-        connectClippersButton.removeTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
+        connectClippersButton.removeTarget(self, action: #selector(disconnectClippers), for: .touchUpInside)
         connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         connectClippersButton.isEnabled = true
         myPeripheral = nil
@@ -144,18 +315,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         bluetooth.delegate = self
         
         SceneSetUp()
-        
-        drawCircle()
-        
-        guard headphone.isDeviceMotionAvailable else {
-            AlertView.alert(self, "Sorry", "Your headphones are not supported.")
-            return
-        }
-        
-        guard phone.isDeviceMotionAvailable else {
-            AlertView.alert(self, "Sorry", "Your phone is not supported.")
-            return
-        }
+    
         
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 2
@@ -172,6 +332,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self?.processMotionDataIfNeeded()
         }
         
+        drawCircle()
+        
+        let informationItem = UIBarButtonItem(customView: informationButton)
+        
+        navigationItem.rightBarButtonItem = informationItem
+        
         view.addSubview(heightLabel)
         
         NSLayoutConstraint.activate([
@@ -182,17 +348,14 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         view.addSubview(resetOrientationButton)
         
-        // Set constraints for the reset button
         NSLayoutConstraint.activate([
             resetOrientationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             resetOrientationButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
 
         ])
         
-        // Add the connect clippers button to the view
         view.addSubview(connectClippersButton)
         
-        // Set constraints for the connect clippers button
         NSLayoutConstraint.activate([
             connectClippersButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             connectClippersButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
@@ -251,30 +414,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         hairHeightNode.simdOrientation = starting_origin_quaternion * rotation_quaternion.inverse
         
     }
-    @objc func resetOrientation() {
-        reset_origin_quaternion_set = false
-    }
-    
-    @objc func disconnectFromClippers() {
-        if let peripheral = myPeripheral {
-            bluetooth.cancelPeripheralConnection(peripheral)
-            print("Disconnecting from " +  peripheral.name!)
-            connectClippersButton.setTitle("Disconnecting...", for: .normal)
-            connectClippersButton.isEnabled = false // Disable the button while disconnecting
-            connectClippersButton.setTitleColor(.systemBlue, for: .normal)
-        } else {
-            print("No peripheral connected.")
-        }
-    }
-    
-    @objc func connectClippers() {
-        print("Scanning")
-        bluetooth.stopScan()
-        connectClippersButton.setTitle("Scanning...", for: .normal)
-        bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
-        connectClippersButton.isEnabled = false // Disable the button while disconnecting
-        connectClippersButton.setTitleColor(.systemBlue, for: .normal)
-    }
+ 
 }
 
 extension ProductPageViewController: CBPeripheralDelegate {
@@ -314,20 +454,20 @@ extension ProductPageViewController: CBPeripheralDelegate {
         
         
         let inputValue = Double(round(1000 * (1 - red)) / 1000)
-        let inputMin = 0.5
-        let inputMax = 0.85
-        let outputMin: Double = 700
-        let outputMax: Double = 900
-        
-        let clampedValue = clamp(inputValue, inputMin, inputMax)
-        let scaledValue = scale(clampedValue, inputMin, inputMax, outputMin, outputMax)
+        let modelMin = 0.5
+        let modelMax = 0.85
+
+        let clampedValue = clamp(inputValue, modelMin, modelMax)
+        let scaledValue = scale(clampedValue, modelMin, modelMax, Double(outputMin), Double(outputMax))
         
         let height = String(format: "%.3f", scaledValue)
         
         DispatchQueue.main.async {
             self.heightLabel.text = "Height: \(height)"
         }
-        sendText(text:height)
+        if !isModalOpen {
+            sendText(text: height)
+        }
     }
     
     private func clamp(_ value: Double, _ min: Double, _ max: Double) -> Double {
@@ -350,5 +490,14 @@ extension ProductPageViewController: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else { return }
         myCharacteristic = characteristics[0]
+    }
+}
+
+class CustomSlider: UISlider {
+    private let touchAreaEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let increasedBounds = bounds.inset(by: touchAreaEdgeInsets)
+        return increasedBounds.contains(point) ? self : nil
     }
 }
