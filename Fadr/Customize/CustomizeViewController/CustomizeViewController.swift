@@ -146,7 +146,7 @@ extension CustomizeViewController: CBPeripheralDelegate {
         
         // Rotate slider
         slider.transform = CGAffineTransform(rotationAngle: -.pi / 2)
-        connectClippersButton.setTitle("Connect Clippers", for: .normal)
+        connectClippersButton.setTitle("Connect", for: .normal)
         connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         
         // Add subviews
