@@ -16,15 +16,13 @@ class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
     
     let connectClippersButton = UIButton(type: .system)
     
-    
-    
     func sendText(text: String) {
         if (myPeripheral != nil && myCharacteristic != nil) {
             let data = text.data(using: .utf8)
             myPeripheral!.writeValue(data!,  for: myCharacteristic!, type: CBCharacteristicWriteType.withResponse)
         }
     }
-
+    
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if peripheral.name == peripheralName {
@@ -56,7 +54,7 @@ class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
         connectClippersButton.addTarget(self, action: #selector(disconnectFromClippers), for: .touchUpInside)
         connectClippersButton.isEnabled = true
     }
-
+    
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from " +  peripheral.name!)
@@ -75,11 +73,10 @@ class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         bluetooth.delegate = self
-
+        
         
         // Navigation Bar
         setupNavigationBar()
@@ -92,7 +89,6 @@ class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
     
     // MARK: - View transition
     
@@ -126,11 +122,10 @@ class CustomizeViewController: UIViewController, CBCentralManagerDelegate {
         connectClippersButton.setTitle("Scanning...", for: .normal)
         bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
         connectClippersButton.isEnabled = false // Disable the button while disconnecting
-        connectClippersButton.setTitleColor(.systemBlue, for: .normal) 
+        connectClippersButton.setTitleColor(.systemBlue, for: .normal)
     }
     
 }
-
 
 // MARK: - Setup UI
 extension CustomizeViewController: CBPeripheralDelegate {
@@ -154,18 +149,16 @@ extension CustomizeViewController: CBPeripheralDelegate {
         connectClippersButton.setTitle("Connect Clippers", for: .normal)
         connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         
-        
         // Add subviews
         view.addSubview(slider)
         view.addSubview(valueLabel)
         view.addSubview(connectClippersButton)
-
         
         // Constraints
         slider.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         connectClippersButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         
         NSLayoutConstraint.activate([
             slider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -178,7 +171,6 @@ extension CustomizeViewController: CBPeripheralDelegate {
             
             connectClippersButton.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: 20),
             connectClippersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            
         ])
     }
     
@@ -194,7 +186,7 @@ extension CustomizeViewController: CBPeripheralDelegate {
         let clampedValue = clamp(inputValue, inputMin, inputMax)
         let scaledValue = scale(clampedValue, inputMin, inputMax, outputMin, outputMax)
         print("\(Int(scaledValue))")
-
+        
         valueLabel.text = "Value: \(Int(scaledValue))"
         sendText(text: "\(Int(scaledValue))")
     }
@@ -202,11 +194,11 @@ extension CustomizeViewController: CBPeripheralDelegate {
     private func clamp(_ value: Float, _ min: Float, _ max: Float) -> Float {
         return Swift.min(Swift.max(value, min), max)
     }
-
+    
     private func scale(_ value: Float, _ inputMin: Float, _ inputMax: Float, _ outputMin: Float, _ outputMax: Float) -> Float {
         return ((value - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin
     }
-
+    
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }

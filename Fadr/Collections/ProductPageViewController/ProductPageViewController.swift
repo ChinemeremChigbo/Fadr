@@ -5,11 +5,11 @@ import CoreMotion
 
 class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CBCentralManagerDelegate {
     var productObject: Product?
-
+    
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     let default_quaternion = simd_quatf(ix:0, iy:0, iz:0, r:1)
-
+    
     var reset_origin_quaternion_set = false
     var first_quaternion = true
     let headphone = CMHeadphoneMotionManager()
@@ -202,25 +202,22 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     func NodeRotate() {
         
-
-
-
         let headphone_quaternion = self.headphoneData != nil ?
-            simd_quatf(ix: Float(headphoneData!.attitude.quaternion.x),
-                       iy: -Float(headphoneData!.attitude.quaternion.z),
-                       iz: -Float(headphoneData!.attitude.quaternion.y),
-                       r: Float(headphoneData!.attitude.quaternion.w)) :
+        simd_quatf(ix: Float(headphoneData!.attitude.quaternion.x),
+                   iy: -Float(headphoneData!.attitude.quaternion.z),
+                   iz: -Float(headphoneData!.attitude.quaternion.y),
+                   r: Float(headphoneData!.attitude.quaternion.w)) :
         default_quaternion
         
-
+        
         let phone_quaternion = self.phoneData != nil ?
-            simd_quatf(ix: Float(phoneData!.attitude.quaternion.x),
-                       iy: -Float(phoneData!.attitude.quaternion.z),
-                       iz: -Float(phoneData!.attitude.quaternion.y),
-                       r: Float(phoneData!.attitude.quaternion.w)) :
+        simd_quatf(ix: Float(phoneData!.attitude.quaternion.x),
+                   iy: -Float(phoneData!.attitude.quaternion.z),
+                   iz: -Float(phoneData!.attitude.quaternion.y),
+                   r: Float(phoneData!.attitude.quaternion.w)) :
         default_quaternion
-                
-
+        
+        
         let relative_quaternion = phone_quaternion * headphone_quaternion.inverse
         
         if !reset_origin_quaternion_set {
@@ -230,8 +227,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         let rotation_quaternion = reset_origin_quaternion * relative_quaternion.inverse
         
         hairHeightNode.simdOrientation = starting_origin_quaternion * rotation_quaternion.inverse
-
-            
+        
     }
     @objc func resetOrientation() {
         reset_origin_quaternion_set = false
@@ -272,7 +268,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         if let scene = SCNScene(named: "hair_height.scn") {
             self.scnView.scene = scene
             hairHeightNode = scene.rootNode.childNode(withName: "Head", recursively: true)
-
+            
         } else {
             print("Failed to load scene from file")
         }
@@ -294,7 +290,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let pixelInfo: Int = ((Int(cgImage.width) * middleY) + middleX) * 4 // RGBA
         
         let red = CGFloat(data[pixelInfo]) / 255.0
-
+        
         
         let inputValue = Double(round(1000 * (1 - red)) / 1000)
         let inputMin = 0.5
@@ -316,11 +312,11 @@ extension ProductPageViewController: CBPeripheralDelegate {
     private func clamp(_ value: Double, _ min: Double, _ max: Double) -> Double {
         return Swift.min(Swift.max(value, min), max)
     }
-
+    
     private func scale(_ value: Double, _ inputMin: Double, _ inputMax: Double, _ outputMin: Double, _ outputMax: Double) -> Double {
         return ((value - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin
     }
-
+    
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }

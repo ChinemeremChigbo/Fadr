@@ -3,7 +3,6 @@ import UIKit
 
 extension UIView {
     
-    
     // MARK: - Animate-in Blur View
     
     func showAnimatedAsBlur(withDuration duration: TimeInterval, delay: TimeInterval) {
@@ -22,7 +21,6 @@ extension UIView {
                 completion: nil)
         }
     }
-    
     
     // MARK: - Animate-out Blur View
     
@@ -44,11 +42,8 @@ extension UIView {
                     self.isUserInteractionEnabled = false
                 }
             }
-            
         }
-        
     }
-    
     
     // MARK: - Drop-down Shadow
     
@@ -63,7 +58,6 @@ extension UIView {
             light: lightColor, dark: darkColor).cgColor
     }
     
-    
     // MARK: - Add Border Style
     
     // Customize the border of a view
@@ -71,7 +65,6 @@ extension UIView {
         layer.borderWidth = borderWidth
         layer.borderColor = borderColor.cgColor
     }
-    
     
     // MARK: - Add Corner Radius
     
