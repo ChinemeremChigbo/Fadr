@@ -527,7 +527,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         
         
         let inputValue = Double(round(1000 * (1 - red)) / 1000)
-        let modelMin = 0.5
+        let modelMin = 0.45
         let modelMax = 0.85
         
         let clampedValue = clamp(inputValue, modelMin, modelMax)
