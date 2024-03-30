@@ -12,6 +12,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     var slider: CustomSlider!
     var alertController: UIAlertController?
+    var minLabel: UILabel!
+    var maxLabel: UILabel!
 
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -111,7 +113,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
 
     @objc func showInformationModal() {
         isModalOpen = true
-        
 
         // Create UIAlertController
         alertController = UIAlertController(title: "Information", message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
@@ -141,15 +142,27 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         alertController?.view.addSubview(self.slider)
         
         // Create labels for displaying min and max values
-        let minLabel = UILabel(frame: CGRect(x: 10, y: 150, width: 50, height: 20))
+        minLabel = UILabel(frame: CGRect(x: 10, y: 150, width: 50, height: 20))
         minLabel.text = "\(self.outputMin)"
         minLabel.textAlignment = .center
         alertController?.view.addSubview(minLabel)
         
-        let maxLabel = UILabel(frame: CGRect(x: 210, y: 150, width: 50, height: 20))
+        maxLabel = UILabel(frame: CGRect(x: 210, y: 150, width: 50, height: 20))
         maxLabel.text = "\(self.outputMax)"
         maxLabel.textAlignment = .center
         alertController?.view.addSubview(maxLabel)
+        
+        // Create Save button
+        let saveButton = UIButton(type: .system)
+        saveButton.setTitle("Save", for: .normal)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        alertController?.view.addSubview(saveButton)
+        
+        // Create Zero button
+        let zeroButton = UIButton(type: .system)
+        zeroButton.setTitle("Zero", for: .normal)
+        zeroButton.addTarget(self, action: #selector(zeroButtonTapped), for: .touchUpInside)
+        alertController?.view.addSubview(zeroButton)
         
         // Add target to segmented control to detect changes
         controlTypeSegmentedControl.addTarget(self, action: #selector(controlTypeChanged(_:)), for: .valueChanged)
@@ -181,6 +194,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self.slider.value = (minValue + maxValue) / 2
         }
         
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             isModalOpen = false
         }
@@ -193,8 +207,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider.translatesAutoresizingMaskIntoConstraints = false
         minLabel.translatesAutoresizingMaskIntoConstraints = false
         maxLabel.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        zeroButton.translatesAutoresizingMaskIntoConstraints = false
+
 
         NSLayoutConstraint.activate([
+            controlTypeSegmentedControl.topAnchor.constraint(equalTo: alertController!.view.topAnchor, constant: 80),
             controlTypeSegmentedControl.topAnchor.constraint(equalTo: alertController!.view.topAnchor, constant: 80),
             controlTypeSegmentedControl.centerXAnchor.constraint(equalTo: alertController!.view.centerXAnchor),
             self.slider.topAnchor.constraint(equalTo: controlTypeSegmentedControl.bottomAnchor, constant: 20),
@@ -203,7 +221,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             minLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
             minLabel.leadingAnchor.constraint(equalTo: self.slider.leadingAnchor),
             maxLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
-            maxLabel.trailingAnchor.constraint(equalTo: self.slider.trailingAnchor)
+            maxLabel.trailingAnchor.constraint(equalTo: self.slider.trailingAnchor),
+            saveButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
+            saveButton.trailingAnchor.constraint(equalTo: alertController!.view.trailingAnchor, constant: -20),
+            zeroButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
+            zeroButton.leadingAnchor.constraint(equalTo: alertController!.view.leadingAnchor, constant: 20)
         ])
 
         // Present alert controller
@@ -227,8 +249,46 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
              break
          }
     }
+    
+    @objc func saveButtonTapped() {
+        // Handle Save button tap
+        guard let minText = self.alertController?.textFields?.first?.text,
+              let maxText = self.alertController?.textFields?.last?.text,
+              let minValue = Float(minText),
+              let maxValue = Float(maxText) else {
+            return
+        }
+        
+        guard minValue <= maxValue else {
+            // Show an error alert
+            let errorAlert = UIAlertController(title: "Error", message: "Minimum value cannot be larger than maximum value.", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(errorAlert, animated: true, completion: nil)
+            return
+        }
+        // Update the min and max labels with the entered values
+        self.minLabel.text = minText
+        self.maxLabel.text = maxText
 
+        
+        isModalOpen = false
 
+        self.outputMin = minValue
+        self.outputMax = maxValue
+        
+        self.slider.minimumValue = minValue
+        self.slider.maximumValue = maxValue
+        self.slider.value = (minValue + maxValue) / 2
+    }
+
+    @objc func zeroButtonTapped() {
+        // Handle Zero button tap
+        // Get the current value of the slider
+        let sliderValue = self.slider.value
+        
+        // Convert the slider value to a string and assign it to the minTextField
+        alertController?.textFields?.first?.text = "\(sliderValue)"
+    }
 
     
     func sendText(text: String) {
