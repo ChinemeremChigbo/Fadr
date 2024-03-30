@@ -75,5 +75,4 @@ extension ProductOverviewViewController {
         screenTitle = "Collections"
         title = screenTitle
     }
-    
 }

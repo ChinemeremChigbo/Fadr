@@ -74,9 +74,3 @@ extension ProductCatalogViewController {
             .backButtonTitle = backButtonTitle
     }
 }
-
-// MARK: - Observers
-
-extension ProductCatalogViewController {
-    
-}

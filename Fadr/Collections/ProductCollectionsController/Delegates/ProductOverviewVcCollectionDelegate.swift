@@ -73,5 +73,4 @@ extension ProductOverviewViewController: UICollectionViewDelegate, UICollectionV
         ObjectCollectionHelper.highlightCellOnTap(for: cell!)
         return true
     }
-    
 }

@@ -36,7 +36,6 @@ class ProductCollectionCell: UICollectionViewCell {
         onReuse()
         productImageView.image = nil
     }
-    
 }
 
 // MARK: - UI Style
@@ -59,5 +58,4 @@ extension ProductCollectionCell {
             darkColor: .white
         )
     }
-    
 }

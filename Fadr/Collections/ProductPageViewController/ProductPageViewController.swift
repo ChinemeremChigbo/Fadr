@@ -330,5 +330,4 @@ extension ProductPageViewController: CBPeripheralDelegate {
         guard let characteristics = service.characteristics else { return }
         myCharacteristic = characteristics[0]
     }
-    
 }
