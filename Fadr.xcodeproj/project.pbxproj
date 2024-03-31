@@ -46,10 +46,10 @@
 		10613EEF2BB0A1E8008CA5CC /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10613EEC2BB0A1E8008CA5CC /* ViewExtensions.swift */; };
 		10613EF02BB0A1E8008CA5CC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10613EED2BB0A1E8008CA5CC /* ColorExtensions.swift */; };
 		108FF0B22BACF44B00AE6A39 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 108FF0B12BACF44B00AE6A39 /* products.json */; };
-		10A310EB2BB78281006AD73D /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 10A310EA2BB78281006AD73D /* hair_height.scn */; };
 		10A996F82BB9D2C70095456E /* Disconnected.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 10A996F52BB9D2C70095456E /* Disconnected.m4a */; };
 		10A996F92BB9D2C70095456E /* Connected.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 10A996F62BB9D2C70095456E /* Connected.m4a */; };
 		10A996FA2BB9D2C70095456E /* Slow.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 10A996F72BB9D2C70095456E /* Slow.m4a */; };
+		10A997002BBA29EC0095456E /* hair_height.scn in Resources */ = {isa = PBXBuildFile; fileRef = 10A996FF2BBA29EC0095456E /* hair_height.scn */; };
 		8E4A85DD251A37600077CDAC /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4A85DC251A37600077CDAC /* InformationViewController.swift */; };
 		8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E1251A37610077CDAC /* Assets.xcassets */; };
 		8E4A85E5251A37610077CDAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4A85E3251A37610077CDAC /* LaunchScreen.storyboard */; };
@@ -95,10 +95,10 @@
 		10613EEC2BB0A1E8008CA5CC /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		10613EED2BB0A1E8008CA5CC /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		108FF0B12BACF44B00AE6A39 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
-		10A310EA2BB78281006AD73D /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		10A996F52BB9D2C70095456E /* Disconnected.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Disconnected.m4a; sourceTree = "<group>"; };
 		10A996F62BB9D2C70095456E /* Connected.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Connected.m4a; sourceTree = "<group>"; };
 		10A996F72BB9D2C70095456E /* Slow.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Slow.m4a; sourceTree = "<group>"; };
+		10A996FF2BBA29EC0095456E /* hair_height.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = hair_height.scn; sourceTree = "<group>"; };
 		8E4A85D5251A37600077CDAC /* Fadr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fadr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4A85DC251A37600077CDAC /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		8E4A85E1251A37610077CDAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		1027CA862BACF700001CCADC /* 3D */ = {
 			isa = PBXGroup;
 			children = (
-				10A310EA2BB78281006AD73D /* hair_height.scn */,
+				10A996FF2BBA29EC0095456E /* hair_height.scn */,
 				1027CA852BACF700001CCADC /* Hair.png */,
 			);
 			path = 3D;
@@ -423,10 +423,10 @@
 				10A996FA2BB9D2C70095456E /* Slow.m4a in Resources */,
 				10A996F82BB9D2C70095456E /* Disconnected.m4a in Resources */,
 				8E4A85E2251A37610077CDAC /* Assets.xcassets in Resources */,
-				10A310EB2BB78281006AD73D /* hair_height.scn in Resources */,
 				1027CABD2BACFADB001CCADC /* ProductCollectionCell.xib in Resources */,
 				1027CAE32BAD35E4001CCADC /* taper_afro.jpg in Resources */,
 				10A996F92BB9D2C70095456E /* Connected.m4a in Resources */,
+				10A997002BBA29EC0095456E /* hair_height.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
