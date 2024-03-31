@@ -16,6 +16,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var alertController: UIAlertController?
     var minLabel: UILabel!
     var maxLabel: UILabel!
+    var currValueLabel: UILabel!
     
     var outputMin: Float = 0
     var outputMax: Float = 180
@@ -44,9 +45,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var lastUpdateTimestamp: TimeInterval = 0
     let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
-    
 
-    
     lazy var heightLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
@@ -70,6 +69,13 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         reset_origin_quaternion_set = false
     }
     
+    @objc func sliderValueChanged(_ slider: UISlider) {
+        let roundedValue = round(slider.value * 1000) / 1000
+        slider.value = roundedValue
+        let value = slider.value
+        self.currValueLabel.text = "\(value)"
+    }
+
     lazy var connectClippersButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Connect", for: .normal)
@@ -161,10 +167,14 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         alertController?.view.addSubview(controlTypeSegmentedControl)
         
         // Create slider
-        self.slider = CustomSlider(frame: CGRect(x: 10, y: 70, width: 250, height: 20))
-        self.slider.minimumValue = self.outputMin
-        self.slider.maximumValue = self.outputMax
-        self.slider.value = self.outputMin
+        if self.slider == nil {
+            print("slider is nil")
+            self.slider = CustomSlider(frame: CGRect(x: 10, y: 70, width: 250, height: 20))
+            self.slider.minimumValue = self.outputMin
+            self.slider.maximumValue = self.outputMax
+            self.slider.value = self.outputMin
+            self.slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        }
         alertController?.view.addSubview(self.slider)
         
         // Create labels for displaying min and max values
@@ -177,6 +187,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         maxLabel.text = "\(self.outputMax)"
         maxLabel.textAlignment = .center
         alertController?.view.addSubview(maxLabel)
+        
+        currValueLabel = UILabel(frame: CGRect(x: 210, y: 150, width: 50, height: 20))
+        currValueLabel.text = "\(self.slider.value)"
+        currValueLabel.textAlignment = .center
+        alertController?.view.addSubview(currValueLabel)
         
         // Create Save button
         let saveButton = UIButton(type: .system)
@@ -238,9 +253,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self.modelMin = modelMinValue
             self.modelMax = modelMaxValue
             
+            if (self.slider.value < minValue || self.slider.value > maxValue){
+                self.slider.value = minValue
+                self.currValueLabel.text = "\(minValue)"
+            }
             self.slider.minimumValue = minValue
             self.slider.maximumValue = maxValue
-            self.slider.value = minValue
         }
         
         
@@ -256,6 +274,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider.translatesAutoresizingMaskIntoConstraints = false
         minLabel.translatesAutoresizingMaskIntoConstraints = false
         maxLabel.translatesAutoresizingMaskIntoConstraints = false
+        currValueLabel.translatesAutoresizingMaskIntoConstraints = false
         minButton.translatesAutoresizingMaskIntoConstraints = false
         maxButton.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -271,6 +290,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self.slider.trailingAnchor.constraint(equalTo: alertController!.view.trailingAnchor, constant: -20),
             minLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
             minLabel.leadingAnchor.constraint(equalTo: self.slider.leadingAnchor),
+            currValueLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
+            currValueLabel.centerXAnchor.constraint(equalTo: alertController!.view.centerXAnchor),
             maxLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
             maxLabel.trailingAnchor.constraint(equalTo: self.slider.trailingAnchor),
             minButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
@@ -346,9 +367,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.modelMin = modelMinValue
         self.modelMax = modelMaxValue
         
+        if (self.slider.value < minValue || self.slider.value > maxValue){
+            self.slider.value = minValue
+            self.currValueLabel.text = "\(minValue)"
+        }
         self.slider.minimumValue = minValue
         self.slider.maximumValue = maxValue
-        self.slider.value = minValue
     }
     
     @objc func minButtonTapped() {
