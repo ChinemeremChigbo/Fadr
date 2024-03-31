@@ -7,6 +7,7 @@
 BLEServer *server;
 BLECharacteristic *characteristicMessage;
 float MM = 40.95;
+bool isConnected = false;
 int MIDPOINT = 700;
 int pos = MIDPOINT; // 0-4095
 
@@ -30,11 +31,13 @@ class MyServerCallbacks : public BLEServerCallbacks
 {
     void onConnect(BLEServer *server)
     {
+        isConnected = true;
         Serial.println("Connected");
     };
 
     void onDisconnect(BLEServer *server)
     {
+        isConnected = false;
         Serial.println("Device disconnected, restarting advertising");
         server->startAdvertising();
     }
@@ -178,6 +181,9 @@ void setup()
 void loop()
 {
     int potValue = analogRead(potPin);
+    if(!isConnected){
+        pos = potValue;
+    }
     moveToPosition(pos);
     myservo.write(pos);
 }
