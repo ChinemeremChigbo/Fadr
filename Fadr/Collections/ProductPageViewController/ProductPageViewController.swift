@@ -164,7 +164,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider = CustomSlider(frame: CGRect(x: 10, y: 70, width: 250, height: 20))
         self.slider.minimumValue = self.outputMin
         self.slider.maximumValue = self.outputMax
-        self.slider.value = (self.outputMin + self.outputMax) / 2
+        self.slider.value = self.outputMin
         alertController?.view.addSubview(self.slider)
         
         // Create labels for displaying min and max values
@@ -234,7 +234,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             
             self.slider.minimumValue = minValue
             self.slider.maximumValue = maxValue
-            self.slider.value = (minValue + maxValue) / 2
+            self.slider.value = minValue
         }
         
         
@@ -340,7 +340,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         self.slider.minimumValue = minValue
         self.slider.maximumValue = maxValue
-        self.slider.value = (minValue + maxValue) / 2
+        self.slider.value = minValue
     }
     
     @objc func zeroButtonTapped() {
