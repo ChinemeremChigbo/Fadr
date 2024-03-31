@@ -22,7 +22,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     var outputMin: Float = 0
     var outputMax: Float = 180
-    var ticksPerMm: Float = 18
     var modelMin: Float = 0.35
     var modelMax: Float = 0.85
     
@@ -145,13 +144,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             textField.text = "\(self.outputMax)"
             textField.keyboardType = .decimalPad
         }
-        
-        alertController?.addTextField { textField in
-            textField.placeholder = "Ticks per mm"
-            textField.text = "\(self.ticksPerMm)"
-            textField.keyboardType = .decimalPad
-        }
-        
+
         alertController?.addTextField { textField in
             textField.placeholder = "3D Model Minimum"
             textField.text = "\(self.modelMin)"
@@ -221,12 +214,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             guard let minText = self.alertController?.textFields?[0].text,
                   let maxText = self.alertController?.textFields?[1].text,
-                  let ticksPerMmText = self.alertController?.textFields?[2].text,
-                  let modelMinText = self.alertController?.textFields?[3].text,
-                  let modelMaxText = self.alertController?.textFields?[4].text,
+                  let modelMinText = self.alertController?.textFields?[2].text,
+                  let modelMaxText = self.alertController?.textFields?[3].text,
                   let minValue = Float(minText),
                   let maxValue = Float(maxText),
-                  let ticksPerMmValue = Float(ticksPerMmText),
                   let modelMinValue = Float(modelMinText),
                   let modelMaxValue = Float(modelMaxText) else {
                 return
@@ -252,7 +243,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             
             self.outputMin = minValue
             self.outputMax = maxValue
-            self.ticksPerMm = ticksPerMmValue
             self.modelMin = modelMinValue
             self.modelMax = modelMaxValue
             
@@ -313,18 +303,15 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         let selectedIndex = sender.selectedSegmentIndex
         guard let minTextField = alertController?.textFields?[0] else { return }
         guard let maxTextField = alertController?.textFields?[1] else { return }
-        guard let ticksPerMmTextField = alertController?.textFields?[2] else { return }
         switch selectedIndex {
         case 0: // Servo
             // Set text field values to 0 and 180
             minTextField.text = "0"
             maxTextField.text = "180"
-            ticksPerMmTextField.text = "18"
         case 1: // Linear Actuator
             // Set text field values to 0 and 4095
             minTextField.text = "0"
             maxTextField.text = "4095"
-            ticksPerMmTextField.text = "18"
         default:
             break
         }
@@ -334,12 +321,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         // Handle Save button tap
         guard let minText = self.alertController?.textFields?[0].text,
               let maxText = self.alertController?.textFields?[1].text,
-              let ticksPerMmText = self.alertController?.textFields?[2].text,
-              let modelMinText = self.alertController?.textFields?[3].text,
-              let modelMaxText = self.alertController?.textFields?[4].text,
+              let modelMinText = self.alertController?.textFields?[2].text,
+              let modelMaxText = self.alertController?.textFields?[3].text,
               let minValue = Float(minText),
               let maxValue = Float(maxText),
-              let ticksPerMmValue = Float(ticksPerMmText),
               let modelMinValue = Float(modelMinText),
               let modelMaxValue = Float(modelMaxText) else {
             return
@@ -366,7 +351,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
                 
         self.outputMin = minValue
         self.outputMax = maxValue
-        self.ticksPerMm = ticksPerMmValue
         self.modelMin = modelMinValue
         self.modelMax = modelMaxValue
         
