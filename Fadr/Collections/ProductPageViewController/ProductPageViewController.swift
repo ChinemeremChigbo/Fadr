@@ -10,6 +10,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     var productObject: Product?
     
+    var prevText: String = ""
     var slider: CustomSlider!
     var alertController: UIAlertController?
     var minLabel: UILabel!
@@ -310,7 +311,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         
         guard minValue <= maxValue else {
-            // Show an error alert
             let errorAlert = UIAlertController(title: "Error", message: "Minimum value cannot be larger than maximum value.", preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(errorAlert, animated: true, completion: nil)
@@ -318,7 +318,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         }
         
         guard modelMinValue <= modelMaxValue else {
-            // Show an error alert
             let errorAlert = UIAlertController(title: "Error", message: "Model minimum value cannot be larger than model maximum value.", preferredStyle: .alert)
             errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(errorAlert, animated: true, completion: nil)
@@ -353,9 +352,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     
     func sendText(text: String) {
-        if (myPeripheral != nil && myCharacteristic != nil) {
+        if (myPeripheral != nil && myCharacteristic != nil && self.prevText != text) {
             let data = text.data(using: .utf8)
             myPeripheral!.writeValue(data!,  for: myCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+            self.prevText = text
+            print(text)
         }
     }
     
@@ -400,7 +401,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         connectClippersButton.isEnabled = true
         myPeripheral = nil
         myCharacteristic = nil
-        
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -589,7 +589,6 @@ extension ProductPageViewController: CBPeripheralDelegate {
         }
         
         sendText(text: height)
-        print(height)
     }
     
     private func clamp(_ value: Double, _ min: Double, _ max: Double) -> Double {
