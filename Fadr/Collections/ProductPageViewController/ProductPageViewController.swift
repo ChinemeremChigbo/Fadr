@@ -15,6 +15,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var minLabel: UILabel!
     var maxLabel: UILabel!
     
+    var outputMin: Float = 0
+    var outputMax: Float = 180
+    var ticksPerMm: Float = 18
+    var modelMin: Float = 0.45
+    var modelMax: Float = 0.85
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -38,11 +43,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     let updateInterval: TimeInterval = 0.1
     var scnView = SCNView()
     
-    var outputMin: Float = 0
-    var outputMax: Float = 180
-    
-    var ticksPerMm: Float = 18
-    
+
     
     lazy var heightLabel: UILabel = {
         let label = UILabel()
@@ -133,13 +134,23 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             textField.keyboardType = .decimalPad
         }
         
-        // Add a text field for "Ticks per mm"
         alertController?.addTextField { textField in
             textField.placeholder = "Ticks per mm"
             textField.text = "\(self.ticksPerMm)"
             textField.keyboardType = .decimalPad
         }
         
+        alertController?.addTextField { textField in
+            textField.placeholder = "3D Model Minimum"
+            textField.text = "\(self.modelMin)"
+            textField.keyboardType = .decimalPad
+        }
+        
+        alertController?.addTextField { textField in
+            textField.placeholder = "3D Model Maximum"
+            textField.text = "\(self.modelMax)"
+            textField.keyboardType = .decimalPad
+        }
         
         // Create segmented control for choosing control type
         let controlTypeSegmentedControl = UISegmentedControl(items: ["Servo", "Linear Actuator"])
@@ -184,9 +195,13 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             guard let minText = self.alertController?.textFields?[0].text,
                   let maxText = self.alertController?.textFields?[1].text,
                   let ticksPerMmText = self.alertController?.textFields?[2].text,
+                  let modelMinText = self.alertController?.textFields?[3].text,
+                  let modelMaxText = self.alertController?.textFields?[4].text,
                   let minValue = Float(minText),
                   let maxValue = Float(maxText),
-                  let ticksPerMmValue = Float(ticksPerMmText) else {
+                  let ticksPerMmValue = Float(ticksPerMmText),
+                  let modelMinValue = Float(modelMinText),
+                  let modelMaxValue = Float(modelMaxText) else {
                 return
             }
             
@@ -198,11 +213,21 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
                 return
             }
             
+            guard modelMinValue <= modelMaxValue else {
+                // Show an error alert
+                let errorAlert = UIAlertController(title: "Error", message: "Model minimum value cannot be larger than model maximum value.", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(errorAlert, animated: true, completion: nil)
+                return
+            }
+            
             isModalOpen = false
             
             self.outputMin = minValue
             self.outputMax = maxValue
             self.ticksPerMm = ticksPerMmValue
+            self.modelMin = modelMinValue
+            self.modelMax = modelMaxValue
             
             self.slider.minimumValue = minValue
             self.slider.maximumValue = maxValue
@@ -273,9 +298,13 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         guard let minText = self.alertController?.textFields?[0].text,
               let maxText = self.alertController?.textFields?[1].text,
               let ticksPerMmText = self.alertController?.textFields?[2].text,
+              let modelMinText = self.alertController?.textFields?[3].text,
+              let modelMaxText = self.alertController?.textFields?[4].text,
               let minValue = Float(minText),
               let maxValue = Float(maxText),
-              let ticksPerMmValue = Float(ticksPerMmText) else {
+              let ticksPerMmValue = Float(ticksPerMmText),
+              let modelMinValue = Float(modelMinText),
+              let modelMaxValue = Float(modelMaxText) else {
             return
         }
         
@@ -287,6 +316,15 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self.present(errorAlert, animated: true, completion: nil)
             return
         }
+        
+        guard modelMinValue <= modelMaxValue else {
+            // Show an error alert
+            let errorAlert = UIAlertController(title: "Error", message: "Model minimum value cannot be larger than model maximum value.", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(errorAlert, animated: true, completion: nil)
+            return
+        }
+        
         // Update the min and max labels with the entered values
         self.minLabel.text = minText
         self.maxLabel.text = maxText
@@ -296,6 +334,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.outputMin = minValue
         self.outputMax = maxValue
         self.ticksPerMm = ticksPerMmValue
+        self.modelMin = modelMinValue
+        self.modelMax = modelMaxValue
         
         self.slider.minimumValue = minValue
         self.slider.maximumValue = maxValue
@@ -535,11 +575,9 @@ extension ProductPageViewController: CBPeripheralDelegate {
         
         
         let inputValue = Double(round(1000 * (1 - red)) / 1000)
-        let modelMin = 0.45
-        let modelMax = 0.85
         
-        let clampedValue = clamp(inputValue, modelMin, modelMax)
-        let scaledValue = scale(clampedValue, modelMin, modelMax, Double(outputMin), Double(outputMax))
+        let clampedValue = clamp(inputValue, Double(self.modelMin), Double(self.modelMax))
+        let scaledValue = scale(clampedValue, Double(self.modelMin), Double(self.modelMax), Double(outputMin), Double(outputMax))
         
         var height = String(format: "%.3f", scaledValue)
         
