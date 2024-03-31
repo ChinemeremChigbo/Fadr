@@ -11,7 +11,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var productObject: Product?
     
     var audioPlayer: AVAudioPlayer!
-
     
     var autoReconnect: Bool = true
     var prevText: String = ""
@@ -26,6 +25,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var ticksPerMm: Float = 18
     var modelMin: Float = 0.35
     var modelMax: Float = 0.85
+    
+    var invertModelValue: Bool = true
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -91,6 +92,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     @objc func connectClippers() {
         print("Scanning")
+        playAudio(fileName: "Connected")
         bluetooth.stopScan()
         connectClippersButton.setTitle("Scanning...", for: .normal)
         bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
@@ -125,8 +127,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    
     
     @objc func showInformationModal() {
         isModalOpen = true
@@ -646,7 +646,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let red = CGFloat(data[pixelInfo]) / 255.0
         
         
-        let inputValue = Double(round(1000 * (1 - red)) / 1000)
+        let inputValue = invertModelValue ? Double(round(1000 * (red)) / 1000) : Double(round(1000 * (1 - red)) / 1000)
         
         let clampedValue = clamp(inputValue, Double(self.modelMin), Double(self.modelMax))
         let scaledValue = scale(clampedValue, Double(self.modelMin), Double(self.modelMax), Double(outputMin), Double(outputMax))
@@ -659,6 +659,7 @@ extension ProductPageViewController: CBPeripheralDelegate {
         if isModalOpen {
             height = String(format: "%.3f", self.slider.value)
         }
+        
         
         sendText(text: height)
     }
