@@ -66,6 +66,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         return button
     }()
     
+    @objc func sliderValueChanged(_ slider: UISlider) {
+        var height = String(format: "%.3f", slider.value)
+        sendText(text: height)
+    }
+    
     @objc func resetOrientation() {
         reset_origin_quaternion_set = false
     }
@@ -165,6 +170,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider.minimumValue = self.outputMin
         self.slider.maximumValue = self.outputMax
         self.slider.value = self.outputMin
+        self.slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged) // Add target for valueChanged event
+
         alertController?.view.addSubview(self.slider)
         
         // Create labels for displaying min and max values
@@ -594,11 +601,10 @@ extension ProductPageViewController: CBPeripheralDelegate {
         DispatchQueue.main.async {
             self.heightLabel.text = "Height: \(height)"
         }
-        if isModalOpen {
-            height = String(format: "%.3f", self.slider.value)
+        if (!isModalOpen){
+            sendText(text: height)
         }
         
-        sendText(text: height)
     }
     
     private func clamp(_ value: Double, _ min: Double, _ max: Double) -> Double {
