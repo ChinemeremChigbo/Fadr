@@ -630,10 +630,12 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let red = CGFloat(data[pixelInfo]) / 255.0
         
         
-        let inputValue = invertModelValue ? Double(round(1000 * (red)) / 1000) : Double(round(1000 * (1 - red)) / 1000)
+        let invertAwareInputValue = invertModelValue ? Double(round(1000 * (red)) / 1000) : Double(round(1000 * (1 - red)) / 1000)
+        let invertAwareModelMin = invertModelValue ? (1 - self.modelMax) : self.modelMin
+        let invertAwareModelMax = invertModelValue ? (1 - self.modelMin) : self.modelMax
         
-        let clampedValue = clamp(inputValue, Double(self.modelMin), Double(self.modelMax))
-        let scaledValue = scale(clampedValue, Double(self.modelMin), Double(self.modelMax), Double(outputMin), Double(outputMax))
+        let clampedValue = clamp(invertAwareInputValue, Double(invertAwareModelMin), Double(invertAwareModelMax))
+        let scaledValue = scale(clampedValue, Double(invertAwareModelMin), Double(invertAwareModelMax), Double(outputMin), Double(outputMax))
         
         var height = String(format: "%.3f", scaledValue)
         
