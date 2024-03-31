@@ -10,6 +10,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     var productObject: Product?
     
+    var autoReconnect: Bool = true
     var prevText: String = ""
     var slider: CustomSlider!
     var alertController: UIAlertController?
@@ -98,6 +99,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     @objc func disconnectClippers() {
         if let peripheral = myPeripheral {
+            self.autoReconnect = false
             bluetooth.cancelPeripheralConnection(peripheral)
             print("Disconnecting from " +  peripheral.name!)
             connectClippersButton.setTitle("Disconnecting...", for: .normal)
@@ -395,12 +397,20 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from " +  peripheral.name!)
-        connectClippersButton.setTitle("Connect", for: .normal)
-        connectClippersButton.removeTarget(self, action: #selector(disconnectClippers), for: .touchUpInside)
-        connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
-        connectClippersButton.isEnabled = true
         myPeripheral = nil
         myCharacteristic = nil
+        if (self.autoReconnect){
+            print("Automatically reconnecting")
+            connectClippers()
+        }
+        else{
+            print("Not automatically reconnecting")
+            self.autoReconnect = true
+            connectClippersButton.setTitle("Connect", for: .normal)
+            connectClippersButton.removeTarget(self, action: #selector(disconnectClippers), for: .touchUpInside)
+            connectClippersButton.addTarget(self, action: #selector(connectClippers), for: .touchUpInside)
+            connectClippersButton.isEnabled = true
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
