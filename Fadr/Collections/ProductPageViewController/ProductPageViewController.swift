@@ -2,13 +2,16 @@ import UIKit
 import CoreBluetooth
 import SceneKit
 import CoreMotion
-
+import AVFoundation
 
 var isModalOpen = false
 
 class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CBCentralManagerDelegate {
     
     var productObject: Product?
+    
+    var audioPlayer: AVAudioPlayer!
+
     
     var autoReconnect: Bool = true
     var prevText: String = ""
@@ -403,6 +406,22 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         }
     }
     
+    func playAudio(fileName: String) {
+        if let audioPath = Bundle.main.path(forResource: fileName, ofType: "m4a") {
+            let audioURL = URL(fileURLWithPath: audioPath)
+            do {
+                // Play audio
+                print("Playing audio from: \(fileName).m4a")
+                audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
+                audioPlayer.play()
+            } catch {
+                print("Error playing audio: \(error.localizedDescription)")
+            }
+        } else {
+            print("Audio file not found.")
+        }
+    }
+
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if peripheral.name == peripheralName {
             myPeripheral = peripheral
@@ -434,10 +453,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         connectClippersButton.removeTarget(self, action: #selector(connectClippers), for: .touchUpInside)
         connectClippersButton.addTarget(self, action: #selector(disconnectClippers), for: .touchUpInside)
         connectClippersButton.isEnabled = true
+        playAudio(fileName: "Connected")
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected from " +  peripheral.name!)
+        playAudio(fileName: "Disconnected")
         myPeripheral = nil
         myCharacteristic = nil
         if (self.autoReconnect){
