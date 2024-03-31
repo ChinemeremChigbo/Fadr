@@ -185,10 +185,16 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         alertController?.view.addSubview(saveButton)
         
         // Create Zero button
-        let zeroButton = UIButton(type: .system)
-        zeroButton.setTitle("Zero", for: .normal)
-        zeroButton.addTarget(self, action: #selector(zeroButtonTapped), for: .touchUpInside)
-        alertController?.view.addSubview(zeroButton)
+        let minButton = UIButton(type: .system)
+        minButton.setTitle("Zero", for: .normal)
+        minButton.addTarget(self, action: #selector(minButtonTapped), for: .touchUpInside)
+        alertController?.view.addSubview(minButton)
+        
+        // Create Max button
+        let maxButton = UIButton(type: .system)
+        maxButton.setTitle("Max", for: .normal)
+        maxButton.addTarget(self, action: #selector(maxButtonTapped), for: .touchUpInside)
+        alertController?.view.addSubview(maxButton)
         
         // Add target to segmented control to detect changes
         controlTypeSegmentedControl.addTarget(self, action: #selector(controlTypeChanged(_:)), for: .valueChanged)
@@ -250,8 +256,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider.translatesAutoresizingMaskIntoConstraints = false
         minLabel.translatesAutoresizingMaskIntoConstraints = false
         maxLabel.translatesAutoresizingMaskIntoConstraints = false
+        minButton.translatesAutoresizingMaskIntoConstraints = false
+        maxButton.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        zeroButton.translatesAutoresizingMaskIntoConstraints = false
+        
         
         
         NSLayoutConstraint.activate([
@@ -265,10 +273,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             minLabel.leadingAnchor.constraint(equalTo: self.slider.leadingAnchor),
             maxLabel.topAnchor.constraint(equalTo: self.slider.bottomAnchor, constant: 10),
             maxLabel.trailingAnchor.constraint(equalTo: self.slider.trailingAnchor),
+            minButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
+            minButton.leadingAnchor.constraint(equalTo: alertController!.view.leadingAnchor, constant: 20),
+            maxButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
+            maxButton.centerXAnchor.constraint(equalTo: alertController!.view.centerXAnchor),
             saveButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
-            saveButton.trailingAnchor.constraint(equalTo: alertController!.view.trailingAnchor, constant: -20),
-            zeroButton.topAnchor.constraint(equalTo: minLabel.bottomAnchor, constant: 10),
-            zeroButton.leadingAnchor.constraint(equalTo: alertController!.view.leadingAnchor, constant: 20)
+            saveButton.trailingAnchor.constraint(equalTo: alertController!.view.trailingAnchor, constant: -20)
         ])
         
         // Present alert controller
@@ -341,13 +351,22 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         self.slider.value = minValue
     }
     
-    @objc func zeroButtonTapped() {
+    @objc func minButtonTapped() {
         // Handle Zero button tap
         // Get the current value of the slider
         let sliderValue = self.slider.value
         
         // Convert the slider value to a string and assign it to the minTextField
-        alertController?.textFields?.first?.text = "\(sliderValue)"
+        alertController?.textFields?[0].text = "\(sliderValue)"
+    }
+    
+    @objc func maxButtonTapped() {
+        // Handle Max button tap
+        // Get the current value of the slider
+        let sliderValue = self.slider.value
+        
+        // Convert the slider value to a string and assign it to the minTextField
+        alertController?.textFields?[1].text = "\(sliderValue)"
     }
     
     
