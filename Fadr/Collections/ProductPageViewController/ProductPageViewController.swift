@@ -18,7 +18,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var outputMin: Float = 0
     var outputMax: Float = 180
     var ticksPerMm: Float = 18
-    var modelMin: Float = 0.45
+    var modelMin: Float = 0.35
     var modelMax: Float = 0.85
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
