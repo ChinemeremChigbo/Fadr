@@ -403,7 +403,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             let timeDifference = currentTime - lastWarningTime
             if timeDifference > warningTimeThreshold {
                 lastWarningTime = currentTime
-                print("Warning: Rapid changes in text value detected.")
+                print("Warning: Rapid changes in value detected.")
+                playAudio(fileName: "Slow")
             }
         }
     }
