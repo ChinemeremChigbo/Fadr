@@ -37,6 +37,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var headphoneData: CMDeviceMotion?
     let phone = CMMotionManager()
     var phoneData: CMDeviceMotion?
+    var margnetometerData: CMMagnetometerData?
     
     var bluetooth = CBCentralManager()
     let serviceUUID = CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371e")
@@ -385,26 +386,28 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     }
     
     func checkForWarning(text: String) {
-        
-        guard let textValue = Float(text) else {
-            print("Received text is not a valid float: \(text)")
-            return
-        }
-        
-        guard let prevTextValue = Float(self.prevText) else {
-            print("Previously received text is not a valid float: \(String(describing: self.prevText))")
-            return
-        }
-        
-        let valueDifference = abs(textValue - prevTextValue)
-
-        if valueDifference > warningValueThreshold {
-            let currentTime = Date.timeIntervalSinceReferenceDate
-            let timeDifference = currentTime - lastWarningTime
-            if timeDifference > warningTimeThreshold {
-                lastWarningTime = currentTime
-                print("Warning: Rapid changes in value detected.")
-                playAudio(fileName: "Slow")
+        if (self.prevText) != nil {
+            
+            guard let textValue = Float(text) else {
+                print("Received text is not a valid float: \(text)")
+                return
+            }
+            
+            guard let prevTextValue = Float(self.prevText) else {
+                print("Previously received text is not a valid float: \(String(describing: self.prevText))")
+                return
+            }
+            
+            let valueDifference = abs(textValue - prevTextValue)
+            
+            if valueDifference > warningValueThreshold {
+                let currentTime = Date.timeIntervalSinceReferenceDate
+                let timeDifference = currentTime - lastWarningTime
+                if timeDifference > warningTimeThreshold {
+                    lastWarningTime = currentTime
+                    print("Warning: Rapid changes in value detected.")
+                    playAudio(fileName: "Slow")
+                }
             }
         }
     }
@@ -540,6 +543,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             self?.processMotionDataIfNeeded()
         }
         
+        phone.startMagnetometerUpdates(to: queue) { [weak self] motion, error in
+            guard let motion = motion, error == nil else { return }
+            self?.margnetometerData = motion
+            self?.processMotionDataIfNeeded()
+        }
+        
         drawCircle()
         
         let informationItem = UIBarButtonItem(customView: informationButton)
@@ -579,6 +588,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         super.viewWillDisappear(animated)
         headphone.stopDeviceMotionUpdates()
         phone.stopDeviceMotionUpdates()
+        phone.stopMagnetometerUpdates()
     }
     
     func processMotionDataIfNeeded() {
@@ -610,6 +620,16 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
                    r: Float(phoneData!.attitude.quaternion.w)) :
         default_quaternion
         
+        guard let magnetometerData = self.margnetometerData else {
+            print("Error receiving magnetometer data")
+            return
+        }
+        let x = magnetometerData.magneticField.x
+        let y = magnetometerData.magneticField.y
+        let z = magnetometerData.magneticField.z
+        
+        // Print or use the x, y, and z values as needed
+        print("Magnetometer data - X: \(x), Y: \(y), Z: \(z)")
         
         let relative_quaternion = phone_quaternion * headphone_quaternion.inverse
         
@@ -641,7 +661,6 @@ extension ProductPageViewController: CBPeripheralDelegate {
         } else {
             print("Failed to load scene from file")
         }
-        
     }
     
     func getColorOfMiddlePixelOfScene(){
