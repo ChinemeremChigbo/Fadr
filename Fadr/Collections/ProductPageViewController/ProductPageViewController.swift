@@ -13,7 +13,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var audioPlayer: AVAudioPlayer!
     
     var autoReconnect: Bool = true
-    var prevText: String = ""
+    var prevText: String!
     var slider: CustomSlider!
     var alertController: UIAlertController?
     var minLabel: UILabel!
@@ -45,9 +45,14 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var myCharacteristic:CBCharacteristic?
     
     var hairHeightNode: SCNNode!
+    var scnView = SCNView()
+    
     var lastUpdateTimestamp: TimeInterval = 0
     let updateInterval: TimeInterval = 0.1
-    var scnView = SCNView()
+    
+    var lastWarningTime: TimeInterval = 5.0
+    var warningTimeThreshold: TimeInterval = 5.0
+    var warningValueThreshold: Float = 20.0
 
     lazy var heightLabel: UILabel = {
         let label = UILabel()
@@ -379,9 +384,35 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         alertController?.textFields?[1].text = "\(sliderValue)"
     }
     
+    func checkForWarning(text: String) {
+        
+        guard let textValue = Float(text) else {
+            print("Received text is not a valid float: \(text)")
+            return
+        }
+        
+        guard let prevTextValue = Float(self.prevText) else {
+            print("Previously received text is not a valid float: \(String(describing: self.prevText))")
+            return
+        }
+        
+        let valueDifference = abs(textValue - prevTextValue)
+
+        if valueDifference > warningValueThreshold {
+            let currentTime = Date.timeIntervalSinceReferenceDate
+            let timeDifference = currentTime - lastWarningTime
+            if timeDifference > warningTimeThreshold {
+                lastWarningTime = currentTime
+                print("Warning: Rapid changes in text value detected.")
+            }
+        }
+    }
     
     func sendText(text: String) {
         if (myPeripheral != nil && myCharacteristic != nil && self.prevText != text) {
+            
+            checkForWarning(text: text)
+            
             let data = text.data(using: .utf8)
             myPeripheral!.writeValue(data!,  for: myCharacteristic!, type: CBCharacteristicWriteType.withResponse)
             self.prevText = text
