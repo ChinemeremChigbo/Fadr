@@ -301,8 +301,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     @objc func controlTypeChanged(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
-        guard let minTextField = alertController?.textFields?[0] else { return }
-        guard let maxTextField = alertController?.textFields?[1] else { return }
+        guard let minTextField = alertController?.textFields?[0],
+              let maxTextField = alertController?.textFields?[1] else { return }
         switch selectedIndex {
         case 0: // Servo
             // Set text field values to 0 and 180
