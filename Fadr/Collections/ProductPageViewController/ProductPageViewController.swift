@@ -91,7 +91,6 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     @objc func connectClippers() {
         print("Scanning")
-        playAudio(fileName: "Connected")
         bluetooth.stopScan()
         connectClippersButton.setTitle("Scanning...", for: .normal)
         bluetooth.scanForPeripherals(withServices:[serviceUUID], options: nil)
