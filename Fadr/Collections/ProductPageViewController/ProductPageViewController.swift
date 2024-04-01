@@ -301,8 +301,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     
     @objc func controlTypeChanged(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
-        guard let minTextField = alertController?.textFields?[0] else { return }
-        guard let maxTextField = alertController?.textFields?[1] else { return }
+        guard let minTextField = alertController?.textFields?[0],
+              let maxTextField = alertController?.textFields?[1] else { return }
         switch selectedIndex {
         case 0: // Servo
             // Set text field values to 0 and 180
@@ -670,6 +670,15 @@ extension ProductPageViewController: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else { return }
         myCharacteristic = characteristics[0]
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard characteristic == myCharacteristic,
+              let messageData = characteristic.value,
+              let messageString = String(data: messageData, encoding: .utf8) else { return }
+        
+        print("Received message: \(messageString)")
+
     }
 }
 

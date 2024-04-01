@@ -9,7 +9,10 @@ BLECharacteristic *characteristicMessage;
 float MM = 40.95;
 bool isConnected = false;
 int MIDPOINT = 700;
-int pos = MIDPOINT; // 0-4095
+int target_pos = MIDPOINT; // 0-4095
+
+int difference = 0;
+int difference_warning_threshold = 10;
 
 // hbridge controllers:
 int enablePin = 27;
@@ -21,7 +24,7 @@ int potPin = 35;
 
 int pwmOutput = 65535;
 
-int MAX_POSITION = 4095;
+int MAX_POSITION = 180;
 int MIN_POSITION = 0;
 
 int servoPin = 4;
@@ -55,7 +58,7 @@ class MessageCallbacks : public BLECharacteristicCallbacks
         // not accurate if it is servo instead of actuator
         servoValue = constrain(servoValue, MIN_POSITION, MAX_POSITION);
 
-        pos = servoValue;
+        target_pos = servoValue;
     }
 
     void onRead(BLECharacteristic *characteristic)
@@ -63,6 +66,16 @@ class MessageCallbacks : public BLECharacteristicCallbacks
         characteristic->setValue("Foobar");
     }
 };
+
+void differenceWarning()
+{
+    if (isConnected)
+    {
+        String message = "Warning: Absolute difference between target and current position exceeds threshold!";
+        characteristicMessage->setValue(message.c_str());
+        characteristicMessage->notify();
+    }
+}
 
 void setExtend()
 {
@@ -180,10 +193,15 @@ void setup()
 
 void loop()
 {
-    int potValue = analogRead(potPin);
-    if(!isConnected){
-        pos = potValue;
+    int curr_pos = analogRead(potPin);
+    if (!isConnected)
+    {
+        target_pos = curr_pos;
     }
-    moveToPosition(pos);
-    myservo.write(pos);
+    difference = abs(target_pos - curr_pos);
+    if (difference > difference_warning_threshold){
+        differenceWarning();
+    }
+    moveToPosition(target_pos);
+    myservo.write(target_pos);
 }
