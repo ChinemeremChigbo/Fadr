@@ -313,6 +313,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             // Set text field values to 0 and 180
             minTextField.text = "0"
             maxTextField.text = "180"
+            self.invertModelValue = true
         case 1: // Linear Actuator
             // Set text field values to 0 and 4095
             minTextField.text = "0"
