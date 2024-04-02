@@ -8,6 +8,8 @@ var isModalOpen = false
 
 class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDelegate, CBCentralManagerDelegate {
     
+    let servo = true
+
     var productObject: Product?
     
     var audioPlayer: AVAudioPlayer!
@@ -20,10 +22,14 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var maxLabel: UILabel!
     var currValueLabel: UILabel!
     
-    var outputMin: Float = 100 // tallest length (might change)
-    var outputMax: Float = 130 // zero fade (won't change)
-//    var outputMin: Float = 100 // tallest length (might change)
-//    var outputMax: Float = 130 // zero fade (won't change)
+    var outputMin: Float {
+        return servo ? 100 : 80 // tallest length (might change)
+    }
+
+    var outputMax: Float {
+        return servo ? 130 : 100 // zero fade (won't change)
+    }
+    
     var modelMin: Float = 0.35
     var modelMax: Float = 0.85
     
@@ -42,7 +48,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var margnetometerData: CMMagnetometerData?
     
     var bluetooth = CBCentralManager()
-    let serviceUUID = CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371e")
+    var serviceUUID: CBUUID {
+        return servo ? CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371e") : CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371f")
+    }
+
     let peripheralName = "BLETest"
     var myPeripheral:CBPeripheral?
     var myCharacteristic:CBCharacteristic?
