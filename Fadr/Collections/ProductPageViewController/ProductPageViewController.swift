@@ -20,8 +20,8 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var maxLabel: UILabel!
     var currValueLabel: UILabel!
     
-    var outputMin: Float = 0
-    var outputMax: Float = 180
+    var outputMin: Float = 90
+    var outputMax: Float = 120
     var modelMin: Float = 0.35
     var modelMax: Float = 0.85
     
