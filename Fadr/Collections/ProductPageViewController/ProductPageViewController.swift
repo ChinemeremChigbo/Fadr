@@ -22,18 +22,11 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var maxLabel: UILabel!
     var currValueLabel: UILabel!
     
-    var outputMin: Float {
-        return servo ? 100 : 80 // tallest length (might change)
-    }
-
-    var outputMax: Float {
-        return servo ? 130 : 100 // zero fade (won't change)
-    }
-    
-    var modelMin: Float = 0.35
-    var modelMax: Float = 0.85
-    
-    var invertModelValue: Bool = true
+    var outputMin: Float!
+    var outputMax: Float!
+    var modelMin: Float!
+    var modelMax: Float!
+    var invertModelValue: Bool!
     
     var starting_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
     var reset_origin_quaternion = simd_quatf(ix: 0, iy: 0, iz: 0, r: 1)
@@ -48,9 +41,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
     var margnetometerData: CMMagnetometerData?
     
     var bluetooth = CBCentralManager()
-    var serviceUUID: CBUUID {
-        return servo ? CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371e") : CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371f")
-    }
+    var serviceUUID: CBUUID!
 
     let peripheralName = "BLETest"
     var myPeripheral:CBPeripheral?
@@ -151,25 +142,25 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         // Add text fields for minimum and maximum values
         alertController?.addTextField { textField in
             textField.placeholder = "Minimum Value"
-            textField.text = "\(self.outputMin)"
+            textField.text = "\(self.outputMin!)"
             textField.keyboardType = .decimalPad
         }
         
         alertController?.addTextField { textField in
             textField.placeholder = "Maximum Value"
-            textField.text = "\(self.outputMax)"
+            textField.text = "\(self.outputMax!)"
             textField.keyboardType = .decimalPad
         }
 
         alertController?.addTextField { textField in
             textField.placeholder = "3D Model Minimum"
-            textField.text = "\(self.modelMin)"
+            textField.text = "\(self.modelMin!)"
             textField.keyboardType = .decimalPad
         }
         
         alertController?.addTextField { textField in
             textField.placeholder = "3D Model Maximum"
-            textField.text = "\(self.modelMax)"
+            textField.text = "\(self.modelMax!)"
             textField.keyboardType = .decimalPad
         }
         
@@ -191,12 +182,12 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         
         // Create labels for displaying min and max values
         minLabel = UILabel(frame: CGRect(x: 10, y: 150, width: 50, height: 20))
-        minLabel.text = "\(self.outputMin)"
+        minLabel.text = "\(self.outputMin!)"
         minLabel.textAlignment = .center
         alertController?.view.addSubview(minLabel)
         
         maxLabel = UILabel(frame: CGRect(x: 210, y: 150, width: 50, height: 20))
-        maxLabel.text = "\(self.outputMax)"
+        maxLabel.text = "\(self.outputMax!)"
         maxLabel.textAlignment = .center
         alertController?.view.addSubview(maxLabel)
         
@@ -324,12 +315,10 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             // Set text field values to 0 and 180
             minTextField.text = "0"
             maxTextField.text = "180"
-            self.invertModelValue = true
         case 1: // Linear Actuator
             // Set text field values to 0 and 4095
             minTextField.text = "0"
             maxTextField.text = "4095"
-            self.invertModelValue = false
         default:
             break
         }
@@ -538,6 +527,13 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
         headphone.delegate = self
         bluetooth.delegate = self
         
+        outputMin = servo ? 100 : 450
+        outputMax = servo ? 130 : 3500
+        modelMin = servo ? 0.35 : 0.45
+        modelMax = servo ? 0.85 : 0.8
+        invertModelValue = servo ? true : false
+        serviceUUID = servo ? CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371e") : CBUUID(string: "ab0828b1-198e-4351-b779-901fa0e0371f")
+        
         SceneSetUp()
         
         
@@ -697,8 +693,8 @@ extension ProductPageViewController: CBPeripheralDelegate {
         let invertAwareModelMin = invertModelValue ? (1 - self.modelMax) : self.modelMin
         let invertAwareModelMax = invertModelValue ? (1 - self.modelMin) : self.modelMax
         
-        let clampedValue = clamp(invertAwareInputValue, Double(invertAwareModelMin), Double(invertAwareModelMax))
-        let scaledValue = scale(clampedValue, Double(invertAwareModelMin), Double(invertAwareModelMax), Double(outputMin), Double(outputMax))
+        let clampedValue = clamp(invertAwareInputValue, Double(invertAwareModelMin!), Double(invertAwareModelMax!))
+        let scaledValue = scale(clampedValue, Double(invertAwareModelMin!), Double(invertAwareModelMax!), Double(outputMin), Double(outputMax))
         
         var height = String(format: "%.3f", scaledValue)
         
