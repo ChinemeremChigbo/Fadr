@@ -317,6 +317,7 @@ class ProductPageViewController: UIViewController, CMHeadphoneMotionManagerDeleg
             // Set text field values to 0 and 4095
             minTextField.text = "0"
             maxTextField.text = "4095"
+            self.invertModelValue = false
         default:
             break
         }
