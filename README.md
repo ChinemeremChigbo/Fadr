@@ -2,7 +2,7 @@
 
 ## Overview
 
-Fadr is an innovative hair clipping system that uses gyroscope and accelerometer data from AirPods Pro and an iPhone to precisely determine the orientation of your head and the clippers. This technology allows the clippers to automatically adjust their cutting height, removing the need for different guards.
+Fadr is an innovative hair clipping system that uses gyroscope and accelerometer data from AirPods Pros and an iPhone to precisely determine the orientation of your head and the clippers. This technology allows the clippers to automatically adjust their cutting height, removing the need for different guards.
 
 Users can choose from a variety of hairstyles within the Fadr app. Once a style is selected, the app calculates the appropriate cutting heights and directs the clippers to adjust accordingly. (In theory) this system enables anyone to achieve professional-quality haircuts at home, ranging from simple trims to complex fades, without needing barber expertise.
 
